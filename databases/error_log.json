@@ -1,0 +1,7 @@
+{
+   "datetime": "2026-07-03 21:13:18",
+   "state": 200,
+   "where": "ApiRequest.request",
+   "error_type": "str",
+   "error": "Signal source has been deleted"
+}

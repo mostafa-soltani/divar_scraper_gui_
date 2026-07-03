@@ -1,0 +1,36 @@
+{
+   "datetime": "03:21:11:30",
+   "database_name": "new",
+   "topic": "ps4",
+   "city": "tehran",
+   "ads_found": 7972,
+   "ads_saved": 5019
+}{
+   "datetime": "03:21:12:05",
+   "database_name": "new",
+   "topic": "ps4",
+   "city": "tehran",
+   "ads_found": 12486,
+   "ads_saved": 5019
+}{
+   "datetime": "03:21:12:43",
+   "database_name": "new",
+   "topic": "ps4",
+   "city": "tehran",
+   "ads_found": 18008,
+   "ads_saved": 5019
+}{
+   "datetime": "03:21:13:18",
+   "database_name": "new",
+   "topic": "ps4",
+   "city": "tehran",
+   "ads_found": 22618,
+   "ads_saved": 5019
+}{
+   "datetime": "03:21:41:06",
+   "database_name": "test",
+   "topic": "ps1",
+   "city": "all cities of tehran",
+   "ads_found": 2081,
+   "ads_saved": 2081
+}
