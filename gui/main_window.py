@@ -9,16 +9,17 @@ from PySide6.QtWidgets import QButtonGroup
 from storage.city_resolver import CityResolver
 from controllers.search_controller import SearchController
 from config.config import searchConfigs
+from logs.log import log_data
+
 
 past_search = Check_Past_search()
 find_city = CityResolver()
+log = log_data()
 
 class MainWindow:
     def __init__(self):
         self._load_ui()
         self._init_variables()
-        self._ui_chenge()
-        self._hide_frame()
         self._load_past_search()
         self._setup_validators()
         self._connect_signals()
@@ -33,6 +34,8 @@ class MainWindow:
         self.searchconfig = None
         self.controller = SearchController()
         self.search = False
+        self.database_name = None
+        self.database_type = None
 
 
 
@@ -41,7 +44,7 @@ class MainWindow:
     def _load_ui(self):
         loader = QUiLoader()
 
-        file = QFile('gui/ui_ui.ui')
+        file = QFile('new_ui/new.ui')
 
         file.open(QFile.ReadOnly)
 
@@ -49,25 +52,7 @@ class MainWindow:
 
         file.close()
 
-    def _ui_chenge(self):
-        
 
-        self.filter_group = QButtonGroup(self.window)
-
-        self.filter_group.addButton(self.window.yes_filter)
-        self.filter_group.addButton(self.window.no_filter)
-
-        self.filter_group.setExclusive(True)
-
-    def _hide_frame(self):
-
-        for frame in (
-            self.window.filter_frame,
-            self.window.price_frame,
-            self.window.name_frame,
-            self.window.state_frame
-        ):
-            frame.hide()
 
 
     def _load_past_search(self):
@@ -85,7 +70,7 @@ class MainWindow:
                 (
                     self.topic,
                     self.city,
-                    _,
+                    self.city_id,
                     self.database_name,
                     self.database_type,
                 ) = result
@@ -96,10 +81,16 @@ class MainWindow:
                         self.window.topic_to_search.addItem(topic)
                 else:
                     self.window.topic_to_search.addItem(self.topic)
-                for city,city_id in self.city.items():
 
-                    self.window.added_cities.addItem(city)
-                    self.selected_cities[city] = city_id
+                if type(self.city) == dict:
+                    for city,city_id in self.city.items():
+
+                        self.window.added_cities.addItem(city)
+                        self.selected_cities[city] = city_id
+                if type(self.city) is list and type(self.city_id) is list:
+                    for city,city_id in zip(self.city,self.city_id):
+                        self.window.added_cities.addItem(city)
+                        self.selected_cities[city] = city_id
                     
                 self.window.database_name.setText(self.database_name)
 
@@ -126,15 +117,19 @@ class MainWindow:
 
         self.window.topic_save.clicked.connect(self.topic_save)
         self.window.city_save.clicked.connect(self.city_save)
+        self.window.save_database.clicked.connect(self.database_save)
 
         self.window.choose_city.clicked.connect(self.choose_city)
         self.window.search_button.clicked.connect(self.start_search)
 
-        self.window.yes_filter.toggled.connect(self.filter_yes)
-        self.window.no_filter.toggled.connect(self.filter_no)
         self.window.price_filter.toggled.connect(self.price_panle)
         self.window.name_filter.toggled.connect(self.name_panle)
         self.window.state_filter.toggled.connect(self.state_panle)
+
+        self.window.delete_topic.clicked.connect(self.delete_topic)
+        self.window.delete_city.clicked.connect(self.delete_city)
+        self.window.delete_database_item.clicked.connect(self.delete_database_name)
+        
 
     def topic_save(self):
         topic = self.window.topic.text().strip().lower()
@@ -145,6 +140,17 @@ class MainWindow:
         
         self.window.topic_to_search.addItem(topic)
         self.window.topic.clear()
+
+    def database_save(self):
+
+        database_name = self.window.database_name.text().strip().lower()
+
+        if not database_name:
+            QMessageBox.warning(self.window,'warning','the database section is empty',QMessageBox.StandardButton.Ok)
+            return
+        
+        self.window.database_lists.addItem(database_name)
+        self.window.database_name.clear()
 
     def _city_search(self, city):
         new_cities = find_city.get_city_ids(city)
@@ -194,36 +200,33 @@ class MainWindow:
             )
 
 
-    def filter_yes(self,checked):
-        self.window.filter_frame.setVisible(checked)
-        '''self.window.price_frame.hide()
-        self.window.name_frame.hide()
-        self.window.state_frame.hide()'''
-        return checked
-    def filter_no(self,checked):
-        self.window.filter_frame.setVisible(False)
-        self.window.price_frame.hide()
-        self.window.name_frame.hide()
-        self.window.state_frame.hide()
+
+
+    def min_max_saver(self):
+
+        minimum = self.window.minimum_price.text().strip()
+        maximum = self.window.maximum_price.text().strip()
+
+        if not minimum and not maximum:
+            QMessageBox.warning(
+                self.window,
+                "Price Filter",
+                "Please enter at least one price."
+            )
+            return
+
+        self.minimum = int(minimum) if minimum else 0
+        self.maximum = int(maximum) if maximum else 1_000_000_000_000_000
+
     
-    def price_panle(self,checked):
+    def price_panle(self):
 
-        self.window.price_frame.setVisible(checked)
-
-        if checked:
-            self.window.name_frame.hide()
-            self.window.state_frame.hide()
-            self.window.price_save.clicked.connect(self.min_max_saver)
+        self.window.price_save.clicked.connect(self.min_max_saver)
 
         
-    def name_panle(self,checked):
+    def name_panle(self):
 
-        self.window.name_frame.setVisible(checked)
-
-        if checked:
-            self.window.price_frame.hide()
-            self.window.state_frame.hide()
-            self.window.name_save.clicked.connect(self.name_saver)
+        self.window.name_save.clicked.connect(self.name_saver)
 
     def name_saver(self):
 
@@ -231,16 +234,54 @@ class MainWindow:
 
     def state_panle(self,chekced):
 
-        self.window.state_frame.setVisible(chekced)
 
-        if chekced:
-            self.window.price_frame.hide()
-            self.window.name_frame.hide()
-            self.window.state_save.clicked.connect(self.state_saver)
+        self.window.state_save.clicked.connect(self.state_saver)
 
     def state_saver(self):
         
         self.value = self.window.state_str.text().strip().lower()
+
+
+    def delete_city(self):
+        selected = self.window.added_cities.selectedItems()
+
+        if not selected:
+            QMessageBox.warning(self.window,'warning','nothing selected.',QMessageBox.StandardButton.Ok)
+            return
+        
+        for topic in selected:
+
+            self.window.added_cities.takeItem(
+                self.window.added_cities.row(topic)
+            )
+
+    def delete_database_name(self):
+        selected = self.window.database_lists.selectedItems()
+
+        if not selected:
+            QMessageBox.warning(self.window,'warning','nothing selected.',QMessageBox.StandardButton.Ok)
+            return
+
+        for database_name in selected:
+
+            self.window.database_lists.takeItem(
+                self.window.database_lists.row(database_name)
+            )
+
+    def delete_topic(self):
+        selected = self.window.topic_to_search.selectedItems()
+
+        if not selected:
+            QMessageBox.warning(self.window,'warning','nothing selected.',QMessageBox.StandardButton.Ok)
+            return
+
+        for database_name in selected:
+
+            self.window.topic_to_search.takeItem(
+                self.window.topic_to_search.row(database_name)
+            )
+
+
 
 
     def collect_search_data(self):
@@ -321,6 +362,12 @@ class MainWindow:
         )
 
     def start_search(self):
+        
+        log.search_log(topic=self.topics,
+                                  city=list(self.cities.keys()),
+                                  city_ids=list(self.cities.values()),
+                                  database_name=self.database_name,
+                                  database_type=self.database_type)
 
         if not self.search:
 

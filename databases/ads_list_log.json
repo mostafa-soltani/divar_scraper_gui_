@@ -33,4 +33,39 @@
    "city": "all cities of tehran",
    "ads_found": 2081,
    "ads_saved": 2081
+}{
+   "datetime": "03:23:44:45",
+   "database_name": "test",
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1514,
+   "ads_saved": 9
+}{
+   "datetime": "03:23:51:34",
+   "database_name": "test",
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 784,
+   "ads_saved": 5
+}{
+   "datetime": "03:23:51:44",
+   "database_name": "test",
+   "topic": "ps2",
+   "city": "tehran",
+   "ads_found": 1297,
+   "ads_saved": 479
+}{
+   "datetime": "03:23:51:45",
+   "database_name": "test",
+   "topic": "ps1",
+   "city": "rasht",
+   "ads_found": 1381,
+   "ads_saved": 563
+}{
+   "datetime": "03:23:51:47",
+   "database_name": "test",
+   "topic": "ps2",
+   "city": "rasht",
+   "ads_found": 1477,
+   "ads_saved": 654
 }
