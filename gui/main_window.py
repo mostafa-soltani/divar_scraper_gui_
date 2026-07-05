@@ -10,11 +10,13 @@ from storage.city_resolver import CityResolver
 from controllers.search_controller import SearchController
 from config.config import searchConfigs
 from logs.log import log_data
-
+from filters.key_filter import KeyFilter
+from builders.search_builders import build_search_config
 
 past_search = Check_Past_search()
 find_city = CityResolver()
 log = log_data()
+
 
 class MainWindow:
     def __init__(self):
@@ -36,6 +38,13 @@ class MainWindow:
         self.search = False
         self.database_name = None
         self.database_type = None
+        self.filter_city = KeyFilter(self.delete_city)
+        self.filter_topic = KeyFilter(self.delete_topic)
+        self.filter_dataBase_name = KeyFilter(self.delete_database_name)
+        self.minimum = None
+        self.maximum = None
+
+
 
 
 
@@ -114,6 +123,7 @@ class MainWindow:
     def _connect_signals(self):
         self.window.topic.returnPressed.connect(self.topic_save)
         self.window.city.returnPressed.connect(self.city_save)
+        self.window.database_name.returnPressed.connect(self.database_save)
 
         self.window.topic_save.clicked.connect(self.topic_save)
         self.window.city_save.clicked.connect(self.city_save)
@@ -130,7 +140,9 @@ class MainWindow:
         self.window.delete_city.clicked.connect(self.delete_city)
         self.window.delete_database_item.clicked.connect(self.delete_database_name)
         
-
+        self.window.topic_to_search.installEventFilter(self.filter_topic)
+        self.window.added_cities.installEventFilter(self.filter_city)
+        self.window.database_lists.installEventFilter(self.filter_dataBase_name)
     def topic_save(self):
         topic = self.window.topic.text().strip().lower()
 
@@ -232,8 +244,7 @@ class MainWindow:
 
         self.value = self.window.name_str.text().strip().lower()
 
-    def state_panle(self,chekced):
-
+    def state_panle(self):
 
         self.window.state_save.clicked.connect(self.state_saver)
 
@@ -282,64 +293,6 @@ class MainWindow:
             )
 
 
-
-
-    def collect_search_data(self):
-        for topic_num in range(self.window.topic_to_search.count()):
-            self.topics.append(self.window.topic_to_search.item(topic_num).text())
-
-        for city_num in range(self.window.added_cities.count()):
-            city = self.window.added_cities.item(city_num).text()
-            self.cities[city] = self.selected_cities[city]
-
-        self.database_name = self.window.database_name.text()
-
-        if self.window.sqlite_radio.isChecked():
-            self.database_type = 1
-
-        else:
-            self.database_type = 2
-
-        if not self.database_name and not self.database_type:
-            self.database_type,self.database_name = 2,'defult_db'
-
-        if self.window.yes_filter.isChecked():
-            if self.window.price_filter.isChecked():
-                filter_name = 'price filter'
-                filter_value = None
-                min_ = self.minimum
-                max_ = self.maximum
-
-            elif self.window.name_filter.isChecked():
-                filter_name = 'name filter'
-                filter_value = self.value
-                min_ = None
-                max_ = None
-
-            elif self.window.state_filter.isChecked():
-                filter_name = 'state filter'
-                filter_value = self.value
-                min_ = None
-                max_ = None
-
-        else:
-            filter_name = None
-            filter_value = None
-            min_ = None
-            max_ = None
-
-        self.searchconfig = searchConfigs(
-            topics = self.topics,
-            cities = self.cities,
-            database_name=self.database_name,
-            database_type=self.database_type,
-            filter_name=filter_name,
-            filter_value=filter_value,
-            minimum_price=min_,
-            maximum_price=max_
-            
-        )
-
     def search_finished(self):
         self.progress.close()
         self.search = False
@@ -371,7 +324,11 @@ class MainWindow:
 
         if not self.search:
 
-            self.collect_search_data()
+            self.searchconfig = build_search_config(self.window,
+                                                    self.selected_cities,
+                                                    self.minimum,
+                                                    self.maximum,
+                                                    self.value)
 
             self.progress = QProgressDialog(
             "Searching...",

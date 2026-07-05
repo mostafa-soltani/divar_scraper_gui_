@@ -418,7 +418,7 @@ city</string>
       <property name="geometry">
        <rect>
         <x>200</x>
-        <y>500</y>
+        <y>540</y>
         <width>381</width>
         <height>41</height>
        </rect>
@@ -432,31 +432,7 @@ city</string>
        </font>
       </property>
       <property name="text">
-       <string>search</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_29">
-      <property name="geometry">
-       <rect>
-        <x>270</x>
-        <y>530</y>
-        <width>241</width>
-        <height>71</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>MRT_Ramollah</family>
-        <pointsize>11</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#0000ff;&quot;&gt;tap to Search   بزن برای سرچینگ&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>tap to Search بزن برای سرچینگ</string>
       </property>
      </widget>
      <widget class="QFrame" name="frame_7">
@@ -466,7 +442,7 @@ city</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>360</y>
+        <y>370</y>
         <width>781</width>
         <height>181</height>
        </rect>
@@ -703,10 +679,10 @@ city</string>
      <widget class="QLabel" name="label_15">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>180</x>
         <y>220</y>
-        <width>81</width>
-        <height>131</height>
+        <width>61</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
@@ -721,7 +697,7 @@ city</string>
        <bool>false</bool>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;قیمت&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;PRICE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;قیمت&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_16">
@@ -817,7 +793,7 @@ city</string>
         <x>350</x>
         <y>220</y>
         <width>81</width>
-        <height>131</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
@@ -832,16 +808,16 @@ city</string>
        <bool>false</bool>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;اسم &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;TITLE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;اسم &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_19">
       <property name="geometry">
        <rect>
-        <x>520</x>
+        <x>540</x>
         <y>220</y>
-        <width>81</width>
-        <height>131</height>
+        <width>61</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="font">
@@ -856,7 +832,7 @@ city</string>
        <bool>false</bool>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;وضعیت &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;STATE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;وضعیت &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QFrame" name="frame_4">
@@ -1105,6 +1081,78 @@ city</string>
         </rect>
        </property>
       </widget>
+     </widget>
+     <widget class="QLabel" name="label_46">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>320</y>
+        <width>81</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MRT_Ramollah</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;TITLE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_47">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>320</y>
+        <width>61</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MRT_Ramollah</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;PRICE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_48">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>320</y>
+        <width>61</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MRT_Ramollah</family>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#00aa00;&quot;&gt;STATE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="status_tab">
