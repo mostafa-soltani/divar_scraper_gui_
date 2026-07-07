@@ -43,7 +43,10 @@ class ApiRequest:
         search_config,
         time_start,
         signals,
-        cancel_token
+        cancel_token,
+        filters,
+        database_name,
+        database_type
     ):
         
         """
@@ -62,8 +65,8 @@ class ApiRequest:
 
         print('start_api_request')
 
-        print(search_config)
-        print(type(search_config))
+        print('123',search_config)
+        print('234',type(search_config))
 
         try:
             print("topics...")
@@ -78,6 +81,7 @@ class ApiRequest:
             print("timeout...")
             timeout = config.timeout
         except Exception as e:
+            print('jhdcgfdkgfskjh + ')
             traceback.print_exc()
             raise
 
@@ -125,15 +129,7 @@ class ApiRequest:
                             time_start=time_start
                         )
 
-                        data_config = Data_Config(
-                            filter_name=search_config.filter_name,
-                            filter_value=search_config.filter_value,
-                            min_price=search_config.minimum_price,
-                            max_price=search_config.maximum_price,
-                            database_name=search_config.database_name,
-                            database_type=search_config.database_type
-                        )
-                        
+                    
 
 
                         try:
@@ -148,20 +144,27 @@ class ApiRequest:
                             )
 
 
+                            print(filters)
+                            print(type(filters))
+
                             self._process_pages(
                                 paginator=paginator,
                                 url=url,
-                                data_config=data_config,
                                 report_config=report_config,
+                                filters=filters,
+                                database_name=database_name,
+                                database_type=database_type
                             )
 
-                            self.finals_log(data_config,topic,city)
+                            self.finals_log(database_name,topic,city)
 
 
                             signals.progress.emit(percent)
                             break
 
                         except Exception as e:
+
+                            e = traceback.print_exc()
 
                             self._log_error(e)
 
@@ -211,8 +214,10 @@ class ApiRequest:
         self,
         paginator,
         url,
-        data_config,
+        filters,
         report_config,
+        database_name,
+        database_type
     ):
 
         database = None
@@ -223,8 +228,10 @@ class ApiRequest:
                 self._update_report(report_config)
 
             database = processor.process(
-                data_config=data_config,
+                filters = filters,
                 page_json=page_json,
+                database_name=database_name,
+                database_type=database_type,
                 state=self.state,
                 url=url,
             )
@@ -242,10 +249,10 @@ class ApiRequest:
             str(runtime).split(".")[0],
         )
 
-    def finals_log(self,data_config,topic,city):
+    def finals_log(self,database_name,topic,city):
 
         log.final_log(
-            database_name=data_config.database_name,
+            database_name=database_name,
             ads_found=stats.ads_found,
             ads_saved=stats.ads_saved,
             topic = topic,

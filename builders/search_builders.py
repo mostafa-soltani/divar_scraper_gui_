@@ -1,69 +1,80 @@
 from config.config import searchConfigs
+from ui_managares.topic_manager import Topic
+from ui_managares.city_manager import City
+from ui_managares.database_manager import Database
+from config.config import build_config
 
-class build_search_config:
 
-    def __init__(self,window, selected_cities,minimum,maximum,value) -> None:
-        self.window = window
-        self.topics = []
-        self.cities = {}
-        self.selected_cities = selected_cities
-        self.minimum = minimum
-        self.maximum = maximum
-        self.value = value
-    def collect_search_data(self):
-        for topic_num in range(self.window.topic_to_search.count()):
-            self.topics.append(self.window.topic_to_search.item(topic_num).text())
+class BuildSearchConfig:
 
-        for city_num in range(self.window.added_cities.count()):
-            city = self.window.added_cities.item(city_num).text()
-            self.cities[city] = self.selected_cities[city]
+    def __init__(self, config):
 
-        self.database_name = self.window.database_name.text()
+        self.window = config.window
 
-        if self.window.sqlite_radio.isChecked():
-            self.database_type = 1
+        self.selected_cities = config.selected_cities
 
-        else:
-            self.database_type = 2
+        self.minimum = config.minimum
+        self.maximum = config.maximum
+        self.value = config.value
 
-        if not self.database_name and not self.database_type:
-            self.database_type,self.database_name = 2,'defult_db'
-
-        if self.window.yes_filter.isChecked():
-            if self.window.price_filter.isChecked():
-                filter_name = 'price filter'
-                filter_value = None
-                min_ = self.minimum
-                max_ = self.maximum
-
-            elif self.window.name_filter.isChecked():
-                filter_name = 'name filter'
-                filter_value = self.value
-                min_ = None
-                max_ = None
-
-            elif self.window.state_filter.isChecked():
-                filter_name = 'state filter'
-                filter_value = self.value
-                min_ = None
-                max_ = None
-
-        else:
-            filter_name = None
-            filter_value = None
-            min_ = None
-            max_ = None
-
-        self.searchconfig = searchConfigs(
-            topics = self.topics,
-            cities = self.cities,
-            database_name=self.database_name,
-            database_type=self.database_type,
-            filter_name=filter_name,
-            filter_value=filter_value,
-            minimum_price=min_,
-            maximum_price=max_
+        self.manager_config = build_config(
+            selected_cities=self.selected_cities
         )
 
-        return self.searchconfig
+        self.topic_manager = Topic(self.window)
+        self.city_manager = City(self.window, self.manager_config)
+        self.database_manager = Database(self.window)
+
+    def collect_search_data(self):
+        database_name = []
+
+        topics = self.topic_manager.collect()
+
+        cities = {}
+
+        for i in range(self.window.added_cities.count()):
+            city = self.window.added_cities.item(i).text()
+            cities[city] = self.selected_cities[city]
+
+        for item in range(self.window.database_lists.count()):
+
+            database_name.append(self.window.database_lists.item(item).text().strip())
+
+        database_type = 1 if self.window.sqlite_radio.isChecked() else 2
+
+        if not database_name:
+            database_name = ["default_db"]
+
+        filters = {}
+
+        if self.window.price_filter.isChecked():
+
+            filters["price"] = {
+                "minimum": self.minimum,
+                "maximum": self.maximum
+            }
+
+        if self.window.name_filter.isChecked():
+
+            filters["name"] = self.value
+
+        if self.window.state_filter.isChecked():
+
+            filters["state"] = self.value
+
+
+        print(topics,' + ', cities , ' + ', database_name , " + ", database_type , " + ", filters)
+
+        
+        searchConfig = searchConfigs(
+            topics=topics,
+            cities=cities,
+            database_name=database_name,
+            database_type=database_type,
+            filters=filters
+        )
+
+        print(searchConfig)
+    
+        return searchConfig 
     

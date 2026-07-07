@@ -13,10 +13,14 @@ class SearchController:
         self.pool = QThreadPool.globalInstance()
         self.cancel_token = CancelToken()
 
-    def start(self,searchconfig):
+    def start(
+            self,
+            searchconfig):
 
         print('start_searchcontrol')
-        worker = SearchWorker(searchconfig,self.cancel_token)
+        worker = SearchWorker(
+            searchconfig,
+            self.cancel_token)
 
         self.pool.start(worker)
 

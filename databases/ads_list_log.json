@@ -68,4 +68,25 @@
    "city": "rasht",
    "ads_found": 1477,
    "ads_saved": 654
+}{
+   "datetime": "07:20:26:00",
+   "database_name": "default_db",
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1525,
+   "ads_saved": 1523
+}{
+   "datetime": "07:20:38:58",
+   "database_name": "default_db",
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 3049,
+   "ads_saved": 42
+}{
+   "datetime": "07:20:38:59",
+   "database_name": "default_db",
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 3072,
+   "ads_saved": 43
 }

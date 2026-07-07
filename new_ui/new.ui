@@ -577,9 +577,9 @@ city</string>
       <widget class="QLabel" name="label_45">
        <property name="geometry">
         <rect>
-         <x>490</x>
+         <x>650</x>
          <y>0</y>
-         <width>211</width>
+         <width>141</width>
          <height>151</height>
         </rect>
        </property>
@@ -596,6 +596,32 @@ city</string>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#0000ff;&quot;&gt;tap to Delete the&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#0000ff;&quot;&gt;Selected Item&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#0000ff;&quot;&gt;بزن برای پاک کردن &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#0000ff;&quot;&gt;ایتم انتخاب شده&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="sqlite_radio">
+       <property name="geometry">
+        <rect>
+         <x>560</x>
+         <y>40</y>
+         <width>70</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>SQLite</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="csv_radio">
+       <property name="geometry">
+        <rect>
+         <x>560</x>
+         <y>100</y>
+         <width>70</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>CSV</string>
        </property>
       </widget>
      </widget>

@@ -9,14 +9,10 @@ class searchConfigs:
     topics: Optional[list] = None
     cities: Optional[dict] = None
 
-    filter_name: Optional[str]  = None
-    filter_value: Optional[str] = None
-
-    minimum_price: int | None = None
-    maximum_price: int | None = None
+    filters: Optional[dict] = None
 
 
-    database_name: Optional[str] = None
+    database_name : Optional[list] = None
 
     database_type: Optional[int] = None
     
@@ -61,3 +57,16 @@ class Data_Config:
     database_name: Optional[str]
     database_type: Optional[str]
 
+@ dataclass
+class build_config:
+
+    window: Optional[object] = None
+
+    selected_cities: Optional[dict] =None
+
+    minimum: Optional[int] = None
+    maximum: Optional[int] = None
+
+    value: Optional[str] = None
+    
+    

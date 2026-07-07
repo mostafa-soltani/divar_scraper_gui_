@@ -17,8 +17,10 @@ class process_ads:
 
     def process(
             self,
-            data_config,
+            filters,
             page_json,
+            database_name,
+            database_type,
             state,
             url
             ) -> object:
@@ -32,47 +34,73 @@ class process_ads:
         state : the status code from site for save in databases.
         url : for save in log.
         """
+
+        filter_name = None
+        minimum = None
+        maximum = None
+        name = None
+        state = None
+
+        if 'price' in filters:
+            filter_name = 'price_filter'
+            minimum = filters["price"]["minimum"]
+            maximum = filters["price"]["maximum"]
+        
+        if 'name' in filters:
+            filter_name = 'name_filter'
+            name = filters["name"]
+            minimum = None
+            maximum = None
+
+        if 'state' in filters:
+            filter_name = 'state_filter'
+            state = filters['state']
+            minimum = None
+            maximum = None
+            
+
         page = extractor.extract(
             data_json=page_json,
-            filter_name=data_config.filter_name,
-            min_price=data_config.min_price,
-            max_price=data_config.max_price,
-            name_filter=data_config.filter_value,
-            state_filter=data_config.filter_value
+            filter_name=filter_name,
+            min_price=minimum,
+            max_price=maximum,
+            name_filter=name,
+            state_filter=state
         )
 
         stats.pagecount()
-        self.database_name = data_config.database_name
+        for database in database_name:
+            self.database_name = database
 
 
-        if page:
+            if page:
 
-            if data_config.database_type == 1:
+                if database_type == 1:
 
-                self.__save_sql(page)
-                
+                    self.__save_sql(page)
+                    
 
-            elif data_config.database_type == 2:
-                self.__save_csv(page)
+                elif database_type == 2:
+                    self.__save_csv(page)
 
-            else:
-                self.__save_sql(page)
-                self.__save_csv(page)
+                else:
+                    self.__save_sql(page)
+                    self.__save_csv(page)
 
 
-            stats.adsfound(len(page))
+                stats.adsfound(len(page))
 
-        level = "good" if state == 200 else "bad"
+            level = "good" if state == 200 else "bad"
 
-        log.readed_page(stats.page_count,stats.ads_found)
+            log.readed_page(stats.page_count,stats.ads_found)
 
-        log.connect_log(
-                    conection=state,
-                    level=level,
-                    url=url,
-                    database_name='databases/connect_log.json',
-                    database_path=os.path.abspath('databases/connect_log.json')
-                    )
+            log.connect_log(
+                        conection=state,
+                        level=level,
+                        url=url,
+                        database_name='databases/connect_log.json',
+                        database_path=os.path.abspath('databases/connect_log.json')
+                        )
         
         return sql_database
 

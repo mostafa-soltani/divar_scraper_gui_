@@ -6,7 +6,11 @@ import datetime
 
 
 class SearchWorker(QRunnable):
-    def __init__(self,search_config,cancel_token) -> None:
+    def __init__(
+            self,
+            search_config,
+            cancel_token
+            ) -> None:
         super().__init__()
 
         print('start_search_worker')
@@ -17,6 +21,9 @@ class SearchWorker(QRunnable):
         self.api_config = config_api_data()
         self.url = self.api_config.url
         self.cancel_token = cancel_token
+        self.filters = search_config.filters
+        self.database_name = search_config.database_name
+        self.database_type = search_config.database_type
         
             
     @Slot()
@@ -29,7 +36,10 @@ class SearchWorker(QRunnable):
                 search_config=self.search_config,
                 time_start=time_start,
                 signals=self.signals,
-                cancel_token = self.cancel_token
+                cancel_token = self.cancel_token,
+                filters=self.filters,
+                database_name=self.database_name,
+                database_type=self.database_type
                 )
                     
             self.signals.finished.emit()

@@ -9,10 +9,11 @@ class KeyFilter(QObject):
 
     def eventFilter(self, obj, event):
 
-        if event.type() == QEvent.KeyPress:
-
-            if event.key() == Qt.Key_Delete:
-                self.callback(obj)
-                return True
+        if (
+            event.type() == QEvent.KeyPress
+            and event.key() == Qt.Key_Delete
+        ):
+            self.callback()
+            return True
 
         return False
