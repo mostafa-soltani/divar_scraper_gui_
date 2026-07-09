@@ -1,57 +1,58 @@
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile
-from services.check_past_search import Check_Past_search
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtCore import QRegularExpression
-from PySide6.QtWidgets import QProgressDialog
-from storage.city_resolver import CityResolver
 from controllers.search_controller import SearchController
-from logs.log import log_data
 from config.config import build_config
+from storage.city_resolver import CityResolver
+from services.check_past_search import Check_Past_search
 from builders.search_builders import BuildSearchConfig
 from ui_managares.topic_manager import Topic
 from ui_managares.city_manager import City
 from ui_managares.database_manager import Database
 from filters.City_list_event import CityListFilter
+from gui.progress_dialog import Progress
 
-past_search = Check_Past_search()
 find_city = CityResolver()
-log = log_data()
-
-
+past_search = Check_Past_search()
 class MainWindow:
     def __init__(self):
         self._load_ui()
+
         self._init_variables()
+
         self._load_past_search()
+
         self._setup_validators()
+
         self._connect_signals()
 
     
     def _init_variables(self):
-        
+        try:
 
-        self.loaded_cities = set()
-        self.selected_cities = {}
-        self.value = None
-        self.searchconfig = None
-        self.search = False
-        self.minimum = None
-        self.maximum = None
-        self.last_search = None
-        self.controller = SearchController()
-        self.manager_config = build_config(
-            selected_cities=self.selected_cities
-        )
-        self.topic_manager = Topic(self.window)
-        self.city_manager = City(self.window,self.manager_config)
-        self.database_manager = Database(self.window)
-        self.city_filter = CityListFilter(self.window)
+            self.loaded_cities = set()
+            self.selected_cities = {}
+            self.value = None
+            self.searchconfig = None
+            self.search = False
+            self.minimum = None
+            self.maximum = None
+            self.last_search = None
+            self.controller = SearchController()
+            self.manager_config = build_config(
+                selected_cities=self.selected_cities
+            )
+            self.topic_manager = Topic(self.window)
+            self.city_manager = City(self.window,self.manager_config)
+            self.database_manager = Database(self.window)
+            self.city_filter = CityListFilter(self)
 
-        self.window.founded_cities.installEventFilter(self.city_filter)
-        self.window.added_cities.installEventFilters(self.city_filter)
-
+            self.window.founded_cities.installEventFilter(self.city_filter)
+            self.window.added_cities.installEventFilter(self.city_filter)
+        except Exception as e:
+            print(e)
     def _load_ui(self):
         loader = QUiLoader()
 
@@ -67,46 +68,50 @@ class MainWindow:
 
 
     def _load_past_search(self):
-        result = past_search.Past_Search()
+        try:
+            result = past_search.Past_Search()
 
-        if result:
-            reply = QMessageBox.question(
-                self.window,
-                "Search History",
-                "Continue previous search?",
-                QMessageBox.Yes | QMessageBox.No
-            )
+            if result:
+                reply = QMessageBox.question(
+                    self.window,
+                    "Search History",
+                    "Continue previous search?",
+                    QMessageBox.Yes | QMessageBox.No
+                )
 
-            if reply == QMessageBox.Yes:
-                (
-                    self.topic,
-                    self.city,
-                    self.city_id,
-                    self.database_name,
-                    self.database_type,
-                ) = result
+                if reply == QMessageBox.Yes:
+                    (
+                        self.topic,
+                        self.city,
+                        self.city_id,
+                        self.database_name,
+                        self.database_type,
+                    ) = result
 
 
-                if isinstance(self.topic,list):
-                    for topic in self.topic:
-                        self.window.topic_to_search.addItem(topic)
-                else:
-                    self.window.topic_to_search.addItem(self.topic)
+                    if isinstance(self.topic,list):
+                        for topic in self.topic:
+                            self.window.topic_to_search.addItem(topic)
+                    else:
+                        self.window.topic_to_search.addItem(self.topic)
 
-                if type(self.city) == dict:
-                    for city,city_id in self.city.items():
+                    if type(self.city) == dict:
+                        for city,city_id in self.city.items():
 
-                        self.window.added_cities.addItem(city)
-                        self.selected_cities[city] = city_id
-                if type(self.city) is list and type(self.city_id) is list:
-                    for city,city_id in zip(self.city,self.city_id):
-                        self.window.added_cities.addItem(city)
-                        self.selected_cities[city] = city_id
-                    
-                self.window.database_name.setText(self.database_name)
+                            self.window.added_cities.addItem(city)
+                            self.selected_cities[city] = city_id
+                    if type(self.city) is list and type(self.city_id) is list:
+                        for city,city_id in zip(self.city,self.city_id):
+                            self.window.added_cities.addItem(city)
+                            self.selected_cities[city] = city_id
+                        
+                    self.window.database_name.setText(self.database_name)
 
-        else:
-            pass
+            else:
+                pass
+
+        except Exception as e:
+            print(e)
 
 
     def _setup_validators(self):
@@ -155,20 +160,8 @@ class MainWindow:
         self.city_manager.delete()
 
     def unchoose_city(self):
-        selected = self.window.added_cities.selectedItems()
-
-        if not selected:
-            QMessageBox.warning(
-                self.window,
-                'warning',
-                'nothing selected.',
-                QMessageBox.StandardButton.Ok
-            )
-            return
-        
-        for i in selected:
-            self.window.founded_cities.addItem(i)
-            self.window.added_cities.takeItem(i)
+        self.city_manager.unchoose_city()
+    
         
     def topic_save(self):
 
@@ -277,33 +270,12 @@ class MainWindow:
 
 
 
-
-    def search_finished(self):
-        self.progress.close()
-        self.search = False
-
-        QMessageBox.information(
-            self.window,
-            "Done",
-            "Search completed successfully."
-        )
-        
-
-    def show_error(self, message):
-        self.progress.close()
-        self.search = False
-
-        QMessageBox.critical(
-            self.window,
-            "Error",
-            message
-        )
-
-
     def start_search(self):
 
         if self.search:
             return
+        
+        self.search = True
 
         config = build_config(
             window=self.window,
@@ -315,13 +287,7 @@ class MainWindow:
 
         self.searchconfig = BuildSearchConfig(config).collect_search_data()
 
-        log.search_log(
-            topic=self.searchconfig.topics,
-            city=list(self.searchconfig.cities.keys()),
-            city_ids=list(self.searchconfig.cities.values()),
-            database_name=self.searchconfig.database_name,
-            database_type=self.searchconfig.database_type
-        )
+        
 
         if self.searchconfig == self.last_search:
             QMessageBox.information(
@@ -331,33 +297,27 @@ class MainWindow:
             )
             return 
 
-        worker = self.controller.start(self.searchconfig)
+        worker = self.controller.start(
+            searchconfig=self.searchconfig)
+        
+        self.window.cancel.clicked.connect(self.controller.cancel)
 
         self.last_search = self.searchconfig
 
-        self.searchconfig = BuildSearchConfig(config).collect_search_data()
+        
 
-            
+        topics = Topic(self.window).collect()
+        cities = City(self.window,config=config).collect()
 
-        self.progress = QProgressDialog(
-        "Searching...",
-        None,
-        0,
-        100,
-        self.window
-        )
+        for topic,city in zip(topics,cities):
 
-        self.progress.setWindowTitle("Divar Scraper")
-        self.progress.setCancelButtonText('cancel')
-        self.progress.setAutoClose(False)
-        self.progress.setAutoReset(False)
+            self.window.topic_status.addItem(topic)
+            self.window.cities_status.addItem(city)
 
-        self.progress.show()
+        info_page = Progress(self.window,worker)
 
-        worker = self.controller.start(
-            searchconfig=self.searchconfig)
-        self.progress.show()
-        worker.signals.progress.connect(self.progress.setValue)
-        self.progress.canceled.connect(self.controller.cancel)
-        worker.signals.finished.connect(self.search_finished)
-        worker.signals.error.connect(self.show_error)
+        info_page.setup()
+
+        worker.signals.cancelled.connect(info_page.search_cancelled)
+        worker.signals.finished.connect(info_page.search_finished)
+        worker.signals.error.connect(info_page.show_error)

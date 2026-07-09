@@ -110,7 +110,7 @@
        </property>
        <property name="font">
         <font>
-         <family>MRT_East Extra Bold</family>
+         <family>Cascadia Code</family>
          <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
@@ -146,15 +146,21 @@
         <rect>
          <x>320</x>
          <y>20</y>
-         <width>256</width>
+         <width>101</width>
          <height>141</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>20</pointsize>
+        </font>
        </property>
       </widget>
       <widget class="QPushButton" name="delete_topic">
        <property name="geometry">
         <rect>
-         <x>590</x>
+         <x>450</x>
          <y>80</y>
          <width>61</width>
          <height>31</height>
@@ -199,7 +205,7 @@
       <widget class="QLabel" name="label_27">
        <property name="geometry">
         <rect>
-         <x>670</x>
+         <x>580</x>
          <y>20</y>
          <width>111</width>
          <height>151</height>
@@ -271,7 +277,7 @@
        </property>
        <property name="font">
         <font>
-         <family>MRT_East Extra Bold</family>
+         <family>Cascadia Code</family>
          <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
@@ -310,6 +316,12 @@
          <width>101</width>
          <height>131</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>11</pointsize>
+        </font>
        </property>
       </widget>
       <widget class="QPushButton" name="delete_city">
@@ -365,6 +377,12 @@
          <width>101</width>
          <height>131</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>11</pointsize>
+        </font>
        </property>
       </widget>
       <widget class="QPushButton" name="choose_city">
@@ -488,7 +506,7 @@ city</string>
        </property>
        <property name="font">
         <font>
-         <family>MRT_East Extra Bold</family>
+         <family>Cascadia Code</family>
          <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
@@ -527,6 +545,12 @@ city</string>
          <width>101</width>
          <height>91</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>11</pointsize>
+        </font>
        </property>
       </widget>
       <widget class="QPushButton" name="delete_database_item">
@@ -603,9 +627,15 @@ city</string>
         <rect>
          <x>560</x>
          <y>40</y>
-         <width>70</width>
+         <width>81</width>
          <height>17</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>11</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>SQLite</string>
@@ -619,6 +649,12 @@ city</string>
          <width>70</width>
          <height>17</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>11</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>CSV</string>
@@ -909,6 +945,12 @@ city</string>
          <height>31</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
       <widget class="QPushButton" name="price_filter">
        <property name="geometry">
@@ -918,6 +960,12 @@ city</string>
          <width>91</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>11</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>ok ثبت</string>
@@ -980,6 +1028,12 @@ city</string>
          <height>31</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
       </widget>
      </widget>
      <widget class="QFrame" name="frame_5">
@@ -1030,6 +1084,12 @@ city</string>
          <height>31</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>ok ثبت</string>
        </property>
@@ -1042,6 +1102,12 @@ city</string>
          <width>161</width>
          <height>41</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
       </widget>
      </widget>
@@ -1093,6 +1159,12 @@ city</string>
          <height>31</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>ok ثبت</string>
        </property>
@@ -1105,6 +1177,15 @@ city</string>
          <width>161</width>
          <height>41</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </widget>
@@ -1209,16 +1290,6 @@ city</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#7a0002;&quot;&gt;topics&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QListView" name="topics_status">
-      <property name="geometry">
-       <rect>
-        <x>110</x>
-        <y>10</y>
-        <width>256</width>
-        <height>192</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
@@ -1241,16 +1312,6 @@ city</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; color:#7a0002;&quot;&gt;cities&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QListView" name="cities_status">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>10</y>
-        <width>256</width>
-        <height>192</height>
-       </rect>
       </property>
      </widget>
      <widget class="QFrame" name="frame_3">
@@ -1292,16 +1353,6 @@ city</string>
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;current topic&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
-      <widget class="QListView" name="current_topic">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>30</y>
-         <width>161</width>
-         <height>51</height>
-        </rect>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_7">
        <property name="geometry">
         <rect>
@@ -1326,21 +1377,11 @@ city</string>
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;current city&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
-      <widget class="QListView" name="current_city">
-       <property name="geometry">
-        <rect>
-         <x>460</x>
-         <y>30</y>
-         <width>161</width>
-         <height>51</height>
-        </rect>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_8">
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>100</y>
+         <y>160</y>
          <width>141</width>
          <height>31</height>
         </rect>
@@ -1358,26 +1399,6 @@ city</string>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;connection&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QListView" name="connection_state">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>100</y>
-         <width>161</width>
-         <height>51</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QListView" name="tests_status">
-       <property name="geometry">
-        <rect>
-         <x>460</x>
-         <y>100</y>
-         <width>161</width>
-         <height>51</height>
-        </rect>
        </property>
       </widget>
       <widget class="QLabel" name="label_9">
@@ -1404,21 +1425,11 @@ city</string>
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;tests&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
-      <widget class="QListView" name="listView_7">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>170</y>
-         <width>161</width>
-         <height>51</height>
-        </rect>
-       </property>
-      </widget>
       <widget class="QLabel" name="page">
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>170</y>
+         <y>230</y>
          <width>141</width>
          <height>31</height>
         </rect>
@@ -1436,16 +1447,6 @@ city</string>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;page&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QListView" name="ad_found">
-       <property name="geometry">
-        <rect>
-         <x>460</x>
-         <y>170</y>
-         <width>161</width>
-         <height>51</height>
-        </rect>
        </property>
       </widget>
       <widget class="QLabel" name="label_11">
@@ -1475,7 +1476,7 @@ city</string>
       <widget class="QLabel" name="label_12">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>340</x>
          <y>230</y>
          <width>141</width>
          <height>31</height>
@@ -1494,16 +1495,6 @@ city</string>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#7a0002;&quot;&gt;Ads Saved&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QListView" name="ads_saved">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>230</y>
-         <width>161</width>
-         <height>51</height>
-        </rect>
        </property>
       </widget>
       <widget class="QLabel" name="label_32">
@@ -1558,7 +1549,7 @@ city</string>
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>120</y>
+         <y>180</y>
          <width>121</width>
          <height>41</height>
         </rect>
@@ -1606,7 +1597,7 @@ city</string>
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>190</y>
+         <y>250</y>
          <width>121</width>
          <height>41</height>
         </rect>
@@ -1653,7 +1644,7 @@ city</string>
       <widget class="QLabel" name="label_38">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>340</x>
          <y>250</y>
          <width>121</width>
          <height>41</height>
@@ -1672,6 +1663,215 @@ city</string>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;اگهی های ذخیره شده&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_40">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>110</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;اسم دیتابیس &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_29">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>90</y>
+         <width>151</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;database name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="current_topic">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>20</y>
+         <width>161</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>18</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="current_city">
+       <property name="geometry">
+        <rect>
+         <x>460</x>
+         <y>20</y>
+         <width>161</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>18</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="current_db_name">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>90</y>
+         <width>161</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>16</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="test_status">
+       <property name="geometry">
+        <rect>
+         <x>460</x>
+         <y>100</y>
+         <width>161</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="current_state">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>160</y>
+         <width>161</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="ads_found">
+       <property name="geometry">
+        <rect>
+         <x>460</x>
+         <y>170</y>
+         <width>161</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="current_page">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>230</y>
+         <width>161</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="ads_saved">
+       <property name="geometry">
+        <rect>
+         <x>460</x>
+         <y>230</y>
+         <width>161</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -1772,6 +1972,63 @@ city</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;درصد انجام شده&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cancel">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>520</y>
+        <width>141</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>MRT_Bist</family>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>cancel</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="topics_status">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>10</y>
+        <width>256</width>
+        <height>192</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Cascadia Code</family>
+        <pointsize>18</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="cities_status">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>10</y>
+        <width>256</width>
+        <height>192</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Cascadia Code</family>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
      </widget>
     </widget>

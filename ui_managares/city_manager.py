@@ -73,3 +73,19 @@ class City:
             cities[city] = self.selected_cities[city]
 
         return cities
+
+    def unchoose_city(self):
+        selected = self.widgets.added_cities.selectedItems()
+
+        if not selected:
+            QMessageBox.warning(
+                self.widgets,
+                'warning',
+                'nothing selected.',
+                QMessageBox.StandardButton.Ok
+            )
+            return
+        
+        for i in selected:
+            self.widgets.founded_cities.addItem(i)
+            self.widgets.added_cities.takeItem(i)

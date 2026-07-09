@@ -1,11 +1,9 @@
 from colorama import Fore, init
-import json
-
-from core.request_client import RequestClient
-from core.services import log
+from core.Cancel_token import CancelToken
 
 init()
 
+cancel_token = CancelToken()
 
 class Paginator:
 
@@ -15,7 +13,8 @@ class Paginator:
             url,
             headers,
             payloads,
-            timeout
+            timeout,
+            cancel_token
             ):
         
         """
@@ -44,13 +43,16 @@ class Paginator:
 
         self.finished = False
 
-    def fetch_page(self) -> tuple:
+    def fetch_page(self) :
 
         """
         create a session and send requests to site to read
         and return the page in json and status of site in int
         return tuple
         """
+
+        if cancel_token.is_cancelled():
+            return
 
         request_payloads = self.payloads.copy()
 
@@ -77,6 +79,8 @@ class Paginator:
         )
     
     def update_pagination(self,pagination_info) -> None:
+
+        
 
         self.pagination = pagination_info.get("data")
 

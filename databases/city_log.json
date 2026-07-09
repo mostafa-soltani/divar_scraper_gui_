@@ -1,6 +1,7 @@
 {
    "topic": [
-      "ps1"
+      "ps1",
+      "ps2"
    ],
    "city": [
       "tehran"
@@ -8,6 +9,6 @@
    "city_ids": [
       "1"
    ],
-   "database_name": "databases/default_db",
+   "database_name": "databases/['new']",
    "database_type": 2
 }

@@ -1,8 +1,10 @@
 import requests,time
 from config.config import config_api_data
 from core.services import log
+from core.Cancel_token import CancelToken
 
 ask_data = config_api_data()
+cancel_token = CancelToken()
 
 class RequestClient:
 
@@ -16,7 +18,7 @@ class RequestClient:
             payloads,
             headers,
             timeout= 10
-    ) -> tuple:
+    ) :
         """
         make a session and post a ongoing rquest until has no nxt page
 
@@ -32,8 +34,10 @@ class RequestClient:
         for attempt in range(ask_data.max_retry):
 
             try:
-
+                
                
+                if cancel_token.is_cancelled():
+                    return
 
                 response = self.session.post(
                     url = url,

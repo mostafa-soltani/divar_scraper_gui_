@@ -9,7 +9,7 @@ class CancelToken:
     def cancel(self):
         self._event.set()
 
-    def is_cancelled(self):
+    def is_cancelled(self) -> bool:
         return self._event.is_set()
     
     def reset(self):

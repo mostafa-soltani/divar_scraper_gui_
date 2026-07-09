@@ -89,4 +89,94 @@
    "city": "tehran",
    "ads_found": 3072,
    "ads_saved": 43
+}{
+   "datetime": "07:21:44:20",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1523,
+   "ads_saved": 903
+}{
+   "datetime": "07:21:44:38",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps1",
+   "city": "all cities of tehran",
+   "ads_found": 3382,
+   "ads_saved": 1389
+}{
+   "datetime": "08:21:08:27",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1564,
+   "ads_saved": 1564
+}{
+   "datetime": "08:22:20:53",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1535,
+   "ads_saved": 83
+}{
+   "datetime": "08:22:27:40",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1537,
+   "ads_saved": 4
+}{
+   "datetime": "08:22:38:16",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1537,
+   "ads_saved": 2
+}{
+   "datetime": "08:22:42:11",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1514,
+   "ads_saved": 1
+}{
+   "datetime": "08:22:42:32",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps2",
+   "city": "tehran",
+   "ads_found": 2946,
+   "ads_saved": 900
+}{
+   "datetime": "08:22:43:19",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1514,
+   "ads_saved": 0
+}{
+   "datetime": "08:23:09:56",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1058,
+   "ads_saved": 3
 }

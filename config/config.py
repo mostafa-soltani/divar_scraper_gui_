@@ -69,4 +69,3 @@ class build_config:
 
     value: Optional[str] = None
     
-    

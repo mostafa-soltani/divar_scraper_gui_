@@ -21,6 +21,7 @@ class process_ads:
             page_json,
             database_name,
             database_type,
+            cancel_token,
             state,
             url
             ) -> object:
@@ -58,7 +59,9 @@ class process_ads:
             minimum = None
             maximum = None
             
-
+        if cancel_token.is_cancelled():
+            return
+        
         page = extractor.extract(
             data_json=page_json,
             filter_name=filter_name,
@@ -74,6 +77,8 @@ class process_ads:
 
 
             if page:
+                if cancel_token.is_cancelled():
+                    return
 
                 if database_type == 1:
 
@@ -107,6 +112,7 @@ class process_ads:
     def __save_sql(self,page) -> None:
 
         try:
+            
 
             if self.database_name != 'test':
 

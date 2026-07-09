@@ -21,21 +21,13 @@ report = Report()
 
 
 
-class WorkerSignals(QObject):
-
-    finished = Signal()
-
-    progress = Signal(int)
-
-    error = Signal(str)
-
 
 class ApiRequest:
 
     def __init__(self):
         self.state = None
         self.max_retry = config.max_retry
-        self.signal = WorkerSignals()
+
 
     def request(
         self,
@@ -63,60 +55,52 @@ class ApiRequest:
         headers : the search information for users to get what is the request sender.
         """
 
-        print('start_api_request')
-
-        print('123',search_config)
-        print('234',type(search_config))
 
         try:
-            print("topics...")
+
             topics = search_config.topics
 
-            print("cities...")
+
             cities = search_config.cities
 
-            print("headers...")
+
             headers = config.headers
 
-            print("timeout...")
+
             timeout = config.timeout
         except Exception as e:
-            print('jhdcgfdkgfskjh + ')
+            signals.error.emit(e)
             traceback.print_exc()
             raise
 
 
         print(topics[0:3],cities,headers,timeout)
 
-
         total = len(topics) * len(cities)
-
-        print('total',total)
 
         current = 0
 
-        print(cities)
 
         try:
 
             if cancel_token.is_cancelled():
-                self.signal.finished.emit()
+                signals.cancelled.emit()
                 return
 
             for city, city_id in cities.items():
                 if cancel_token.is_cancelled():
-                    self.signal.finished.emit()
+                    signals.cancelled.emit()
                     return
 
 
                 for topic in topics:
                     if cancel_token.is_cancelled():
-                        self.signal.finished.emit()
+                        signals.cancelled.emit()
                         return
 
                     for retry in range(self.max_retry):
                         if cancel_token.is_cancelled():
-                            self.signal.finished.emit()
+                            signals.cancelled.emit()
                             return
 
                         current += 1
@@ -135,17 +119,20 @@ class ApiRequest:
                         try:
                             print('trying')
 
+                            signals.current_topic.emit(topic)
+                            signals.current_city.emit(city)
+                            signals.current_database.emit(database_name)
+                            
                             paginator = self._create_paginator(
                                 url=url,
                                 headers=headers,
                                 timeout=timeout,
                                 city_id=city_id,
+                                cancel_token=cancel_token,
                                 topic=topic,
                             )
 
 
-                            print(filters)
-                            print(type(filters))
 
                             self._process_pages(
                                 paginator=paginator,
@@ -153,6 +140,7 @@ class ApiRequest:
                                 report_config=report_config,
                                 filters=filters,
                                 database_name=database_name,
+                                cancel_token=cancel_token,
                                 database_type=database_type
                             )
 
@@ -164,7 +152,7 @@ class ApiRequest:
 
                         except Exception as e:
 
-                            e = traceback.print_exc()
+                            traceback.print_exc()
 
                             self._log_error(e)
 
@@ -173,12 +161,11 @@ class ApiRequest:
 
                             time.sleep(3)
 
-                    print('')
+                    
+                    
+            signals.finished.emit()
 
-                print('topic in city')
-
-            self.signal.finished.emit()
-            return self.signal
+            return
         except Exception as e:
             print(e)
 
@@ -197,6 +184,7 @@ class ApiRequest:
         self,
         url,
         headers,
+        cancel_token,
         timeout,
         city_id,
         topic,
@@ -207,7 +195,8 @@ class ApiRequest:
             url=url,
             headers=headers,
             payloads=self._build_payload(city_id, topic),
-            timeout=timeout,
+            cancel_token = cancel_token,
+            timeout=timeout
         )
 
     def _process_pages(
@@ -217,6 +206,7 @@ class ApiRequest:
         filters,
         report_config,
         database_name,
+        cancel_token,
         database_type
     ):
 
@@ -233,6 +223,7 @@ class ApiRequest:
                 database_name=database_name,
                 database_type=database_type,
                 state=self.state,
+                cancel_token = cancel_token,
                 url=url,
             )
 
