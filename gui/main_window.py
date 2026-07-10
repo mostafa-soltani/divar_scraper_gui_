@@ -3,10 +3,11 @@ from PySide6.QtCore import QFile
 from PySide6.QtWidgets import QMessageBox
 from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtCore import QRegularExpression
+from services.load_past_search import LoadPastSearch
 from controllers.search_controller import SearchController
 from config.config import build_config
 from storage.city_resolver import CityResolver
-from services.check_past_search import Check_Past_search
+from filters.min_max_filter import Set_Min_Max
 from builders.search_builders import BuildSearchConfig
 from ui_managares.topic_manager import Topic
 from ui_managares.city_manager import City
@@ -15,7 +16,7 @@ from filters.City_list_event import CityListFilter
 from gui.progress_dialog import Progress
 
 find_city = CityResolver()
-past_search = Check_Past_search()
+
 class MainWindow:
     def __init__(self):
         self._load_ui()
@@ -47,8 +48,9 @@ class MainWindow:
             self.topic_manager = Topic(self.window)
             self.city_manager = City(self.window,self.manager_config)
             self.database_manager = Database(self.window)
-            self.city_filter = CityListFilter(self)
-
+            self.city_filter = CityListFilter(self,self.city_manager)
+            self.past_search = LoadPastSearch(self.window)
+            self.set_min_max = Set_Min_Max(self.window)
             self.window.founded_cities.installEventFilter(self.city_filter)
             self.window.added_cities.installEventFilter(self.city_filter)
         except Exception as e:
@@ -68,51 +70,15 @@ class MainWindow:
 
 
     def _load_past_search(self):
-        try:
-            result = past_search.Past_Search()
 
-            if result:
-                reply = QMessageBox.question(
-                    self.window,
-                    "Search History",
-                    "Continue previous search?",
-                    QMessageBox.Yes | QMessageBox.No
-                )
+        config = self.past_search.get()
 
-                if reply == QMessageBox.Yes:
-                    (
-                        self.topic,
-                        self.city,
-                        self.city_id,
-                        self.database_name,
-                        self.database_type,
-                    ) = result
+        if config:
 
-
-                    if isinstance(self.topic,list):
-                        for topic in self.topic:
-                            self.window.topic_to_search.addItem(topic)
-                    else:
-                        self.window.topic_to_search.addItem(self.topic)
-
-                    if type(self.city) == dict:
-                        for city,city_id in self.city.items():
-
-                            self.window.added_cities.addItem(city)
-                            self.selected_cities[city] = city_id
-                    if type(self.city) is list and type(self.city_id) is list:
-                        for city,city_id in zip(self.city,self.city_id):
-                            self.window.added_cities.addItem(city)
-                            self.selected_cities[city] = city_id
-                        
-                    self.window.database_name.setText(self.database_name)
-
-            else:
-                pass
-
-        except Exception as e:
-            print(e)
-
+            self.selected_cities = config.selected_cities
+            self.database_manager.save(database=config.database_name,db_type=config.database_type)
+        else:
+            pass
 
     def _setup_validators(self):
 
@@ -129,15 +95,15 @@ class MainWindow:
 
     def _connect_signals(self):
         self.window.topic.returnPressed.connect(self.topic_save)
-        self.window.city.returnPressed.connect(self.city_save)
+        self.window.city.returnPressed.connect(self.selected_cities_func)
         self.window.database_name.returnPressed.connect(self.database_save)
 
 
         self.window.topic_save.clicked.connect(self.topic_save)
-        self.window.city_save.clicked.connect(self.city_save)
+        self.window.city_save.clicked.connect(self.selected_cities_func)
         self.window.save_database.clicked.connect(self.database_save)
 
-        self.window.choose_city.clicked.connect(self.choose_city)
+        self.window.choose_city.clicked.connect(lambda :self.city_manager.choose_city())
         self.window.search_button.clicked.connect(self.start_search)
 
         self.window.price_filter.toggled.connect(self.price_panle)
@@ -145,7 +111,7 @@ class MainWindow:
         self.window.state_filter.toggled.connect(self.state_panle)
 
         self.window.delete_city.clicked.connect(
-            lambda : self.delete_city()
+            lambda : self.city_manager.delete()
             )
 
         self.window.delete_topic.clicked.connect(
@@ -156,12 +122,11 @@ class MainWindow:
             lambda: self.database_manager.delete()
             )
         
-    def delete_city(self):
-        self.city_manager.delete()
+    def selected_cities_func(self):
+        print(self.selected_cities)
+        self.selected_cities = self.city_manager.add_city()
+        print(self.selected_cities)
 
-    def unchoose_city(self):
-        self.city_manager.unchoose_city()
-    
         
     def topic_save(self):
 
@@ -179,72 +144,11 @@ class MainWindow:
         self.window.database_name.clear()
 
 
-    def _city_search(self, city):
-        new_cities = find_city.get_city_ids(city)
-
-
-        if not new_cities:
-            QMessageBox.warning(
-                self.window,
-                "Warning",
-                "The city section is empty.",
-                QMessageBox.StandardButton.Ok,
-            )
-            return
-        
-        for city_name, city_id in new_cities.items():
-            if city_name not in self.loaded_cities:
-                self.loaded_cities.add(city_name)
-                self.window.founded_cities.addItem(city_name)
-
-            elif city_name in self.selected_cities.keys():
-
-                self.selected_cities.update(new_cities)
-
-            self.selected_cities[city_name] = city_id
-
-    def city_save(self):
-
-        city = self.window.city.text().strip().lower()
-
-        if not city:
-            QMessageBox.warning(self.window,'warning','the topic section is empty',QMessageBox.StandardButton.Ok)
-
-        self._city_search(city)
-        self.window.city.clear()
-
-    def choose_city(self):
-
-        selected = self.window.founded_cities.selectedItems()
-
-        if not selected:
-            QMessageBox.warning(self.window,'warning','nothing selected.',QMessageBox.StandardButton.Ok)
-
-        for city in selected:
-            self.window.added_cities.addItem(city.text().lower())
-            self.window.founded_cities.takeItem(
-                self.window.founded_cities.row(city)
-            )
-
-
 
 
     def min_max_saver(self):
 
-        minimum = self.window.minimum_price.text().strip()
-        maximum = self.window.maximum_price.text().strip()
-
-        if not minimum and not maximum:
-            QMessageBox.warning(
-                self.window,
-                "Price Filter",
-                "Please enter at least one price."
-            )
-            return
-
-        self.minimum = int(minimum) if minimum else 0
-        self.maximum = int(maximum) if maximum else 1_000_000_000_000_000
-
+        self.minimum,self.maximum = self.set_min_max.set_price()
     
     def price_panle(self):
 
@@ -276,6 +180,8 @@ class MainWindow:
             return
         
         self.search = True
+
+        print(self.selected_cities)
 
         config = build_config(
             window=self.window,
@@ -311,12 +217,14 @@ class MainWindow:
 
         for topic,city in zip(topics,cities):
 
-            self.window.topic_status.addItem(topic)
+            self.window.topics_status.addItem(topic)
             self.window.cities_status.addItem(city)
 
-        info_page = Progress(self.window,worker)
+        print('setup for info tab')
 
-        info_page.setup()
+        info_page = Progress(self.window,worker).setup()
+
+        
 
         worker.signals.cancelled.connect(info_page.search_cancelled)
         worker.signals.finished.connect(info_page.search_finished)

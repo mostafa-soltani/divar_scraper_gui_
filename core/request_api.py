@@ -2,7 +2,6 @@ import time
 import datetime
 from config.config import Data_Config
 from colorama import init
-from PySide6.QtCore import QObject, Signal
 from core.HTTP_CLIENT import Paginator
 from core.process_ads import process_ads
 from core.request_client import RequestClient
@@ -86,80 +85,92 @@ class ApiRequest:
             if cancel_token.is_cancelled():
                 signals.cancelled.emit()
                 return
-
-            for city, city_id in cities.items():
+            for database in database_name:
                 if cancel_token.is_cancelled():
                     signals.cancelled.emit()
                     return
 
-
-                for topic in topics:
+                for city, city_id in cities.items():
                     if cancel_token.is_cancelled():
                         signals.cancelled.emit()
                         return
 
-                    for retry in range(self.max_retry):
+
+                    for topic in topics:
                         if cancel_token.is_cancelled():
                             signals.cancelled.emit()
                             return
 
-                        current += 1
+                        for retry in range(self.max_retry):
+                            if cancel_token.is_cancelled():
+                                signals.cancelled.emit()
+                                return
 
-                        percent = int(current / total * 100 )
+                            current += 1
 
-                        report_config = info(
-                            topic=topic,
-                            city=city,
-                            time_start=time_start
-                        )
+                            percent = int(current / total * 100 )
 
-                    
-
-
-                        try:
-                            print('trying')
-
-                            signals.current_topic.emit(topic)
-                            signals.current_city.emit(city)
-                            signals.current_database.emit(database_name)
-                            
-                            paginator = self._create_paginator(
-                                url=url,
-                                headers=headers,
-                                timeout=timeout,
-                                city_id=city_id,
-                                cancel_token=cancel_token,
+                            report_config = info(
                                 topic=topic,
+                                city=city,
+                                time_start=time_start
                             )
 
+                        
 
 
-                            self._process_pages(
-                                paginator=paginator,
-                                url=url,
-                                report_config=report_config,
-                                filters=filters,
-                                database_name=database_name,
-                                cancel_token=cancel_token,
-                                database_type=database_type
-                            )
+                            try:
+                                print('trying')
 
-                            self.finals_log(database_name,topic,city)
+                                print('current_topic =',topic,'type =',type(topic))
+                                print('current_city =',city,'type =',type(city))
+                                print('current_db =',database,'type =',type(database))
+                                signals.current_topic.emit(topic)
+                                print("TOPIC EMITTED")
+
+                                signals.current_city.emit(city)
+                                print("CITY EMITTED")
+
+                                signals.current_database.emit(database)
+                                print("DATABASE EMITTED")
+                                
+                                paginator = self._create_paginator(
+                                    url=url,
+                                    headers=headers,
+                                    timeout=timeout,
+                                    city_id=city_id,
+                                    cancel_token=cancel_token,
+                                    topic=topic,
+                                )
 
 
-                            signals.progress.emit(percent)
-                            break
 
-                        except Exception as e:
+                                self._process_pages(
+                                    paginator=paginator,
+                                    url=url,
+                                    report_config=report_config,
+                                    filters=filters,
+                                    database_name=database,
+                                    cancel_token=cancel_token,
+                                    database_type=database_type
+                                )
 
-                            traceback.print_exc()
+                                self.finals_log(database,topic,city)
 
-                            self._log_error(e)
 
-                            if retry + 1 == self.max_retry:
-                                print(f"Skip -> {city} | {topic}")
+                                signals.progress.emit(percent)
+                                break
 
-                            time.sleep(3)
+                            except Exception as e:
+
+                                traceback.print_exc()
+
+                                self._log_error(e)
+
+                                if retry + 1 == self.max_retry:
+                                    print(f"Skip -> {city} | {topic}")
+
+                                time.sleep(3)
 
                     
                     

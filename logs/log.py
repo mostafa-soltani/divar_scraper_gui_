@@ -32,7 +32,8 @@ class log_data:
                     "topic": topic,
                     "city": city,
                     "city_ids": city_ids,
-                    "database_name":f'databases/{database_name}',
+                    "database_name": database_name,
+                    "database_path":f'databases/{database_name}',
                     "database_type":database_type
                 }
         
@@ -73,7 +74,7 @@ class log_data:
             error,
             where,
             state,
-            error_database = None
+            error_file = None
             ):
         
         """

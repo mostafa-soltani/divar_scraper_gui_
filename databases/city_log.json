@@ -1,14 +1,14 @@
 {
    "topic": [
-      "ps1",
-      "ps2"
+      "ddee"
    ],
    "city": [
-      "tehran"
+      "rasht"
    ],
    "city_ids": [
-      "1"
+      "12"
    ],
-   "database_name": "databases/['new']",
-   "database_type": 2
+   "database_name": "new",
+   "database_path": "databases/new",
+   "database_type": 3
 }

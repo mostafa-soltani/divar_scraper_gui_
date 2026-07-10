@@ -31,9 +31,43 @@ class Progress:
     
     
     def setup(self):
-        self.worker.signals.progress.connect(
-            self.window.progressBar.setValue
-        )
+        try:
+            self.worker.signals.progress.connect(
+                self.window.progressBar.setValue
+            )
+        except Exception as e:
+            print(e)
+
+
+        try:
+            print('update topic')
+            self.worker.signals.current_topic.connect(
+                self.__update_topic
+                
+
+            )
+        except Exception as e:
+            print(e)
+
+        try:
+        
+            print('update city')
+
+            self.worker.signals.current_city.connect(
+                self.__update_city
+
+            )
+        except Exception as e:
+            print(e)
+        try:
+            print('update db')
+            self.worker.signals.current_database.connect(
+                
+                self.__update_database
+            )
+        except Exception as e:
+            print(e)
+
 
         self.worker.signals.finished.connect(
             self._progress_finished
@@ -41,18 +75,6 @@ class Progress:
 
         self.worker.signals.error.connect(
             self._show_error
-        )
-
-        self.worker.signals.current_topic.connect(
-            self.__update_topic
-        )
-
-        self.worker.signals.current_city.connect(
-            self.__update_city
-        )
-
-        self.worker.signals.current_database.connect(
-            self.__update_database
         )
 
     def _progress_finished(self):
@@ -70,13 +92,13 @@ class Progress:
         )
 
     def __update_topic(self, topic):
-        print(topic)
+        print("TOPIC RECEIVED")
         self.window.current_topic.setText(topic)
 
     def __update_city(self, city):
-        print(city)
+        print("CITY RECEIVED")
         self.window.current_city.setText(city)
 
     def __update_database(self, database):
-        print(database)
+        print("DATABASE RECEIVED")
         self.window.current_db_name.setText(database)

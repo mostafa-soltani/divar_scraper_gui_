@@ -179,4 +179,167 @@
    "city": "tehran",
    "ads_found": 1058,
    "ads_saved": 3
+}{
+   "datetime": "09:20:01:45",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1558,
+   "ads_saved": 1557
+}{
+   "datetime": "09:20:01:56",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "ps2",
+   "city": "tehran",
+   "ads_found": 3030,
+   "ads_saved": 2705
+}{
+   "datetime": "09:20:02:03",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "ps3",
+   "city": "tehran",
+   "ads_found": 3943,
+   "ads_saved": 3287
+}{
+   "datetime": "09:20:03:01",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "ps4",
+   "city": "tehran",
+   "ads_found": 8961,
+   "ads_saved": 7257
+}{
+   "datetime": "09:20:04:03",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "ps5",
+   "city": "tehran",
+   "ads_found": 13979,
+   "ads_saved": 10168
+}{
+   "datetime": "09:20:04:16",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "iphone11",
+   "city": "tehran",
+   "ads_found": 15220,
+   "ads_saved": 11407
+}{
+   "datetime": "09:20:04:37",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "ps1",
+   "city": "all cities of tehran",
+   "ads_found": 17209,
+   "ads_saved": 11882
+}{
+   "datetime": "09:20:05:02",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "ps2",
+   "city": "all cities of tehran",
+   "ads_found": 19213,
+   "ads_saved": 12397
+}{
+   "datetime": "09:20:05:15",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "ps3",
+   "city": "all cities of tehran",
+   "ads_found": 20265,
+   "ads_saved": 12561
+}{
+   "datetime": "09:20:06:25",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "ps4",
+   "city": "all cities of tehran",
+   "ads_found": 25283,
+   "ads_saved": 13444
+}{
+   "datetime": "09:20:07:38",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "ps5",
+   "city": "all cities of tehran",
+   "ads_found": 30301,
+   "ads_saved": 13914
+}{
+   "datetime": "09:20:07:48",
+   "database_name": [
+      "default_db"
+   ],
+   "topic": "iphone11",
+   "city": "all cities of tehran",
+   "ads_found": 30327,
+   "ads_saved": 13917
+}{
+   "datetime": "10:13:50:16",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 1644,
+   "ads_saved": 169
+}{
+   "datetime": "10:14:20:32",
+   "database_name": [
+      "new"
+   ],
+   "topic": "ps1",
+   "city": "tehran",
+   "ads_found": 290,
+   "ads_saved": 293
+}{
+   "datetime": "10:15:30:29",
+   "database_name": [
+      "new"
+   ],
+   "topic": "iphone11",
+   "city": "tehran",
+   "ads_found": 794,
+   "ads_saved": 1587
+}{
+   "datetime": "10:16:24:54",
+   "database_name": "new",
+   "topic": "ps1",
+   "city": "rasht",
+   "ads_found": 48,
+   "ads_saved": 96
+}{
+   "datetime": "10:16:40:25",
+   "database_name": "new",
+   "topic": "iphone11",
+   "city": "tehran",
+   "ads_found": 26,
+   "ads_saved": 52
+}{
+   "datetime": "10:16:41:04",
+   "database_name": "new",
+   "topic": "dwd",
+   "city": "rasht",
+   "ads_found": 0,
+   "ads_saved": 0
+}{
+   "datetime": "10:16:42:28",
+   "database_name": "new",
+   "topic": "ddee",
+   "city": "rasht",
+   "ads_found": 0,
+   "ads_saved": 0
 }

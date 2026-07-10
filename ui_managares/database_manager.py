@@ -7,18 +7,35 @@ class Database:
         self.widget = widget
         self.filter = KeyFilter(self.delete)
         self.widget.database_lists.installEventFilter(self.filter)
-        pass
+        self.database_info = {}
 
-    def save(self):
+    def get(self,db_type):
 
-        database_name = self.widget.database_name.text().strip().lower()
 
-        if not database_name:
-            QMessageBox.warning(self.widget,'warning','the state section is empty',QMessageBox.StandardButton.Ok)
-            return
+        for db in range(self.widget.database_lists.count()):
+            db_ = self.widget.database_lists.item(db).text()
+            self.database_info[db_] = db_type
+
+        return self.database_info
+
+    def save(self,database,db_type):
+        """
+        save to database_lists
+        """
+        if database is list:
+            for db in database:
+                self.widget.database_lists.addItem(db)
+                self.database_info[db] = db_type
+
+        elif database is dict:
+            for db,db_type1 in database:
+                self.widget.database_lists.addItem(db)
+                self.database_info[db] = db_type1
+        else:
+            self.widget.database_lists.addItem(database)
+            self.database_info[database] = db_type
+
         
-        return database_name
-    
     def delete(self):
 
         selected = self.widget.database_lists.selectedItems()
@@ -33,14 +50,5 @@ class Database:
                 self.widget.database_lists.row(item)
             )
 
-    def collect(self) -> list:
-        databasess = []
-
-        for item in range(self.widget.database_lists.count()):
-            city = self.widget.added_cities.item(item).text().lower().strip()
-
-            databasess.append(city)
-
-        return databasess
     
   

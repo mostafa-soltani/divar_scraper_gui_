@@ -24,7 +24,7 @@ class Check_Past_search:
 
             data = json_database.load(self.city_log_database)
 
-            topic,city,city_ids,database_name,database_type = data.values()
+            topic,city,city_ids,database_name,path,database_type = data.values()
 
             return topic,city,city_ids,database_name,database_type
     

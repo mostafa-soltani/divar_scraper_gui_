@@ -3,9 +3,10 @@ from PySide6.QtCore import QObject, QEvent, Qt
 
 class CityListFilter(QObject):
 
-    def __init__(self, parent):
+    def __init__(self, parent,city_manager):
         super().__init__()
         self.parent = parent
+        self.city_manager = city_manager
 
     def eventFilter(self, obj, event):
 
@@ -18,17 +19,17 @@ class CityListFilter(QObject):
                     Qt.Key_Enter,
                     Qt.Key_Right,
                 ):
-                    self.parent.choose_city()
+                    self.city_manager.choose_city()
                     return True
 
             elif obj == self.parent.window.added_cities:
 
                 if event.key() == Qt.Key_Left:
-                    self.parent.unchoose_city()
+                    self.city_manager.unchoose_city()
                     return True
 
                 if event.key() == Qt.Key_Delete:
-                    self.parent.delete_city()
+                    self.city_manager.delete()
                     return True
 
         return False

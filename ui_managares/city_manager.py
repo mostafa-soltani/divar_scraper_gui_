@@ -42,16 +42,18 @@ class City:
 
 
 
-    def save(self):
+    def add_city(self):
         city = self.widgets.city.text().strip().lower()
 
         if not city:
             QMessageBox.warning(self.widgets,'warning','the city section is empty',QMessageBox.StandardButton.Ok)
 
-        self._city_search(city)
+        self.selected_cities = self._city_search(city)
         self.widgets.city.clear()
 
+        return self.selected_cities
 
+  
 
     def delete(self):
         selected = self.widgets.added_cities.selectedItems()
@@ -73,6 +75,26 @@ class City:
             cities[city] = self.selected_cities[city]
 
         return cities
+    
+    def choose_city(self):
+
+        selected = self.widgets.founded_cities.selectedItems()
+
+        if not selected:
+            QMessageBox.warning(
+                self.widgets,
+                'warning',
+                'nothing selected.',
+                QMessageBox.StandardButton.Ok
+            )
+            return
+        
+        for i in selected:
+            self.widgets.added_cities.addItem(i.text())
+
+            row = self.widgets.founded_cities.row(i)
+            self.widgets.founded_cities.takeItem(row)
+
 
     def unchoose_city(self):
         selected = self.widgets.added_cities.selectedItems()
@@ -85,7 +107,10 @@ class City:
                 QMessageBox.StandardButton.Ok
             )
             return
-        
-        for i in selected:
-            self.widgets.founded_cities.addItem(i)
-            self.widgets.added_cities.takeItem(i)
+
+        for item in selected:
+            self.widgets.founded_cities.addItem(item.text())
+
+
+            row = self.widgets.founded_cities.row(item)
+            self.widgets.added_cities.takeItem(row)

@@ -34,13 +34,26 @@ class BuildSearchConfig:
 
         for i in range(self.window.added_cities.count()):
             city = self.window.added_cities.item(i).text()
+            print(self.selected_cities)
             cities[city] = self.selected_cities[city]
 
         for item in range(self.window.database_lists.count()):
 
             database_name.append(self.window.database_lists.item(item).text().strip())
 
-        database_type = 1 if self.window.sqlite_radio.isChecked() else 2
+
+        if self.window.sqlite_radio.isChecked():
+            database_type = 1
+
+        if self.window.csv_radio.isChecked():
+            database_type = 2
+
+        if self.window.csv_radio.isChecked() and self.window.sqlite_radio.isChecked():
+            database_type = 3
+
+        else:
+            database_type = 3
+
 
         if not database_name:
             database_name = ["default_db"]
