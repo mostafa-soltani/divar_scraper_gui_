@@ -38666,4 +38666,18 @@
    "url": "https://api.divar.ir/v8/postlist/w/search",
    "database_name": "databases/connect_log.json",
    "database_path": "F:\\gui_divar_scraper\\databases\\connect_log.json"
+}{
+   "datetime": "12:21:28:48",
+   "connection": null,
+   "level": "bad",
+   "url": "https://api.divar.ir/v8/postlist/w/search",
+   "database_name": "databases/connect_log.json",
+   "database_path": "F:\\gui_divar_scraper\\databases\\connect_log.json"
+}{
+   "datetime": "12:21:28:59",
+   "connection": null,
+   "level": "bad",
+   "url": "https://api.divar.ir/v8/postlist/w/search",
+   "database_name": "databases/connect_log.json",
+   "database_path": "F:\\gui_divar_scraper\\databases\\connect_log.json"
 }
