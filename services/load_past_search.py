@@ -9,7 +9,7 @@ past_data = Check_Past_search()
 
 class LoadPastSearch:
     def __init__(self,window):
-        self.window = window
+        self.widget = window
         self.selected_cities = {}
         self.database_name = None
         self.database_type = None
@@ -21,7 +21,7 @@ class LoadPastSearch:
 
             if result:
                 reply = QMessageBox.question(
-                    self.window,
+                    self.widget,
                     'Search History',
                     'Continue Previous Search?',
                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
@@ -38,30 +38,30 @@ class LoadPastSearch:
 
                     if isinstance(self.topic,list):
                         for topic in self.topic:
-                            self.window.topic_to_search.addItem(topic)
+                            self.widget.topic_to_search.addItem(topic)
 
                     else:
-                        self.window.topic_to_search.addItem(self.topic)
+                        self.widget.topic_to_search.addItem(self.topic)
 
                     if type(self.city) == dict:
                         for city,city_id in self.city.items():
 
-                            self.window.added_cities.addItem(city)
+                            self.widget.added_cities.addItem(city)
 
                             self.selected_cities[city] = city_id
 
                     if type(self.city) is list and type(self.city_id) is list:
                         for city,city_id in zip(self.city,self.city_id):
-                            self.window.added_cities.addItem(city)
+                            self.widget.added_cities.addItem(city)
                             self.selected_cities[city] = city_id
 
 
                     if type(self.database_name) is list:
                         for db in self.database_name:
-                            self.window.database_lists.addItem(db)
+                            self.widget.database_lists.addItem(db)
 
                     else:
-                        self.window.database_lists.addItem(self.database_name)
+                        self.widget.database_lists.addItem(self.database_name)
             else:
                 return None
             
@@ -74,5 +74,5 @@ class LoadPastSearch:
                 error=str(e),
                 where='servises/load past search',
                 state=None,
-                error_file='load_past_search.json'
+                error_file='databases/load_past_search.json'
             )

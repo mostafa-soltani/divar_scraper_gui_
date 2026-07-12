@@ -73,7 +73,6 @@ class ApiRequest:
             raise
 
 
-        print(topics[0:3],cities,headers,timeout)
 
         total = len(topics) * len(cities)
 
@@ -86,6 +85,7 @@ class ApiRequest:
                 signals.cancelled.emit()
                 return
             for database in database_name:
+                print('request',database)
                 if cancel_token.is_cancelled():
                     signals.cancelled.emit()
                     return
@@ -122,18 +122,12 @@ class ApiRequest:
                             try:
                                 print('trying')
 
-                                print('current_topic =',topic,'type =',type(topic))
-                                print('current_city =',city,'type =',type(city))
-                                print('current_db =',database,'type =',type(database))
                                 signals.current_topic.emit(topic)
-                                print("TOPIC EMITTED")
 
                                 signals.current_city.emit(city)
-                                print("CITY EMITTED")
 
                                 signals.current_database.emit(database)
-                                print("DATABASE EMITTED")
-                                
+
                                 paginator = self._create_paginator(
                                     url=url,
                                     headers=headers,
@@ -141,6 +135,7 @@ class ApiRequest:
                                     city_id=city_id,
                                     cancel_token=cancel_token,
                                     topic=topic,
+                                    signals = signals
                                 )
 
 
@@ -152,7 +147,8 @@ class ApiRequest:
                                     filters=filters,
                                     database_name=database,
                                     cancel_token=cancel_token,
-                                    database_type=database_type
+                                    database_type=database_type,
+                                    signals=signals
                                 )
 
                                 self.finals_log(database,topic,city)
@@ -177,6 +173,7 @@ class ApiRequest:
             signals.finished.emit()
 
             return
+        
         except Exception as e:
             print(e)
 
@@ -199,6 +196,7 @@ class ApiRequest:
         timeout,
         city_id,
         topic,
+        signals
     ):
 
         return Paginator(
@@ -206,8 +204,8 @@ class ApiRequest:
             url=url,
             headers=headers,
             payloads=self._build_payload(city_id, topic),
-            cancel_token = cancel_token,
-            timeout=timeout
+            timeout=timeout,
+            signals = signals
         )
 
     def _process_pages(
@@ -218,7 +216,8 @@ class ApiRequest:
         report_config,
         database_name,
         cancel_token,
-        database_type
+        database_type,
+        signals
     ):
 
         database = None
@@ -236,6 +235,7 @@ class ApiRequest:
                 state=self.state,
                 cancel_token = cancel_token,
                 url=url,
+                signals=signals
             )
 
         if database:

@@ -30,7 +30,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="search_tab">
      <attribute name="title">
@@ -1269,10 +1269,10 @@ city</string>
      <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
-        <x>-10</x>
+        <x>10</x>
         <y>10</y>
-        <width>121</width>
-        <height>81</height>
+        <width>81</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
@@ -1293,10 +1293,10 @@ city</string>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>360</x>
+        <x>300</x>
         <y>10</y>
-        <width>121</width>
-        <height>81</height>
+        <width>71</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
@@ -1318,9 +1318,9 @@ city</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>220</y>
+        <y>150</y>
         <width>781</width>
-        <height>291</height>
+        <height>441</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1329,61 +1329,13 @@ city</string>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="label_6">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>141</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>MRT_Ramollah</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;current topic&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_7">
-       <property name="geometry">
-        <rect>
-         <x>320</x>
-         <y>30</y>
-         <width>141</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>MRT_Ramollah</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;current city&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_8">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>10</x>
          <y>160</y>
-         <width>141</width>
-         <height>31</height>
+         <width>101</width>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -1398,15 +1350,15 @@ city</string>
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;connection&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#7a0002;&quot;&gt;connection&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_9">
        <property name="geometry">
         <rect>
-         <x>340</x>
-         <y>100</y>
-         <width>141</width>
+         <x>530</x>
+         <y>150</y>
+         <width>71</width>
          <height>31</height>
         </rect>
        </property>
@@ -1422,15 +1374,15 @@ city</string>
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;tests&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#7a0002;&quot;&gt;tests&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
       <widget class="QLabel" name="page">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>230</y>
-         <width>141</width>
+         <x>270</x>
+         <y>160</y>
+         <width>71</width>
          <height>31</height>
         </rect>
        </property>
@@ -1446,112 +1398,16 @@ city</string>
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;page&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_11">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>170</y>
-         <width>141</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>MRT_Ramollah</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#7a0002;&quot;&gt;Ads Found&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_12">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>230</y>
-         <width>141</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>MRT_Ramollah</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#7a0002;&quot;&gt;Ads Saved&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_32">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>50</y>
-         <width>121</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>MRT_Ramollah</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;ایتم الان&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_33">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>50</y>
-         <width>121</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>MRT_Ramollah</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;شهر الان&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#7a0002;&quot;&gt;page&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_34">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>20</x>
          <y>180</y>
-         <width>121</width>
-         <height>41</height>
+         <width>81</width>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -1572,10 +1428,10 @@ city</string>
       <widget class="QLabel" name="label_35">
        <property name="geometry">
         <rect>
-         <x>350</x>
-         <y>120</y>
-         <width>121</width>
-         <height>41</height>
+         <x>520</x>
+         <y>170</y>
+         <width>91</width>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -1596,10 +1452,10 @@ city</string>
       <widget class="QLabel" name="label_36">
        <property name="geometry">
         <rect>
-         <x>40</x>
-         <y>250</y>
-         <width>121</width>
-         <height>41</height>
+         <x>280</x>
+         <y>180</y>
+         <width>51</width>
+         <height>31</height>
         </rect>
        </property>
        <property name="font">
@@ -1617,61 +1473,13 @@ city</string>
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;صفحه&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_37">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>190</y>
-         <width>121</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>MRT_Ramollah</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;اگهی های پیدا شده&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_38">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>250</y>
-         <width>121</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>MRT_Ramollah</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;اگهی های ذخیره شده&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_40">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>110</y>
-         <width>121</width>
-         <height>41</height>
+         <x>520</x>
+         <y>40</y>
+         <width>81</width>
+         <height>21</height>
         </rect>
        </property>
        <property name="font">
@@ -1692,9 +1500,9 @@ city</string>
       <widget class="QLabel" name="label_29">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>90</y>
-         <width>151</width>
+         <x>500</x>
+         <y>20</y>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
@@ -1710,61 +1518,16 @@ city</string>
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#7a0002;&quot;&gt;database name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="current_topic">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>20</y>
-         <width>161</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Cascadia Code</family>
-         <pointsize>18</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="current_city">
-       <property name="geometry">
-        <rect>
-         <x>460</x>
-         <y>20</y>
-         <width>161</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Cascadia Code</family>
-         <pointsize>18</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#7a0002;&quot;&gt;database name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="current_db_name">
        <property name="geometry">
         <rect>
-         <x>150</x>
-         <y>90</y>
-         <width>161</width>
-         <height>51</height>
+         <x>640</x>
+         <y>20</y>
+         <width>121</width>
+         <height>41</height>
         </rect>
        </property>
        <property name="font">
@@ -1782,10 +1545,10 @@ city</string>
       <widget class="QLineEdit" name="test_status">
        <property name="geometry">
         <rect>
-         <x>460</x>
-         <y>100</y>
-         <width>161</width>
-         <height>51</height>
+         <x>640</x>
+         <y>160</y>
+         <width>121</width>
+         <height>41</height>
         </rect>
        </property>
        <property name="font">
@@ -1801,29 +1564,10 @@ city</string>
       <widget class="QLineEdit" name="current_state">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>120</x>
          <y>160</y>
-         <width>161</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Cascadia Code</family>
-         <pointsize>18</pointsize>
-        </font>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="ads_found">
-       <property name="geometry">
-        <rect>
-         <x>460</x>
-         <y>170</y>
-         <width>161</width>
-         <height>51</height>
+         <width>121</width>
+         <height>41</height>
         </rect>
        </property>
        <property name="font">
@@ -1839,10 +1583,10 @@ city</string>
       <widget class="QLineEdit" name="current_page">
        <property name="geometry">
         <rect>
-         <x>150</x>
-         <y>230</y>
-         <width>161</width>
-         <height>51</height>
+         <x>370</x>
+         <y>160</y>
+         <width>121</width>
+         <height>41</height>
         </rect>
        </property>
        <property name="font">
@@ -1855,13 +1599,239 @@ city</string>
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QLineEdit" name="ads_saved">
+      <widget class="QLabel" name="label_7">
        <property name="geometry">
         <rect>
-         <x>460</x>
-         <y>230</y>
-         <width>161</width>
-         <height>51</height>
+         <x>10</x>
+         <y>20</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#7a0002;&quot;&gt;current city&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_33">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>40</y>
+         <width>71</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;شهر الان&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="current_topic">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>18</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>250</x>
+         <y>20</y>
+         <width>121</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; color:#7a0002;&quot;&gt;current topic&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_32">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>40</y>
+         <width>81</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;ایتم الان&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="current_city">
+       <property name="geometry">
+        <rect>
+         <x>370</x>
+         <y>20</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QTableView" name="ads_table">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>251</y>
+         <width>771</width>
+         <height>181</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="page_2">
+       <property name="geometry">
+        <rect>
+         <x>340</x>
+         <y>220</y>
+         <width>91</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#7a0002;&quot;&gt;Data دیتا&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#7a0002;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_41">
+       <property name="geometry">
+        <rect>
+         <x>520</x>
+         <y>110</y>
+         <width>81</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;مغایرت&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_42">
+       <property name="geometry">
+        <rect>
+         <x>510</x>
+         <y>90</y>
+         <width>101</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#7a0002;&quot;&gt;duplicate&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="duplicate">
+       <property name="geometry">
+        <rect>
+         <x>640</x>
+         <y>90</y>
+         <width>121</width>
+         <height>41</height>
         </rect>
        </property>
        <property name="font">
@@ -1872,15 +1842,158 @@ city</string>
        </property>
        <property name="readOnly">
         <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_37">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>110</y>
+         <width>111</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;اگهی های پیدا شده&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_12">
+       <property name="geometry">
+        <rect>
+         <x>260</x>
+         <y>90</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#7a0002;&quot;&gt;Ads Saved&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="ads_saved">
+       <property name="geometry">
+        <rect>
+         <x>370</x>
+         <y>90</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_38">
+       <property name="geometry">
+        <rect>
+         <x>260</x>
+         <y>110</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;اگهی  ذخیره شده&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>false</bool>
+       </property>
+       <property name="openExternalLinks">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="ads_found">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>90</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cascadia Code</family>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_11">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>90</y>
+         <width>101</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>MRT_Ramollah</family>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#7a0002;&quot;&gt;Ads Found&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </widget>
      <widget class="QProgressBar" name="progressBar">
       <property name="geometry">
        <rect>
-        <x>227</x>
-        <y>522</y>
-        <width>351</width>
+        <x>560</x>
+        <y>20</y>
+        <width>221</width>
         <height>41</height>
        </rect>
       </property>
@@ -1906,9 +2019,9 @@ city</string>
       <property name="geometry">
        <rect>
         <x>-10</x>
-        <y>70</y>
-        <width>121</width>
-        <height>141</height>
+        <y>50</y>
+        <width>151</width>
+        <height>61</height>
        </rect>
       </property>
       <property name="font">
@@ -1923,16 +2036,16 @@ city</string>
        <bool>false</bool>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;all the &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;topics&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;تمام ایتم های &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;سرچینگ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;all the topics&lt;/p&gt;&lt;p align=&quot;center&quot;&gt; تمام ایتم های سرچینگ&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_31">
       <property name="geometry">
        <rect>
-        <x>360</x>
-        <y>70</y>
+        <x>280</x>
+        <y>50</y>
         <width>121</width>
-        <height>141</height>
+        <height>61</height>
        </rect>
       </property>
       <property name="font">
@@ -1947,16 +2060,16 @@ city</string>
        <bool>false</bool>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;all the &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;cities&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;تمام ایتم های &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;شهر ها&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;all the cities &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;تمام ایتم های شهر ها&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_39">
       <property name="geometry">
        <rect>
-        <x>560</x>
-        <y>520</y>
-        <width>121</width>
-        <height>41</height>
+        <x>600</x>
+        <y>60</y>
+        <width>101</width>
+        <height>21</height>
        </rect>
       </property>
       <property name="font">
@@ -1977,8 +2090,8 @@ city</string>
      <widget class="QPushButton" name="cancel">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>520</y>
+        <x>590</x>
+        <y>90</y>
         <width>141</width>
         <height>51</height>
        </rect>
@@ -1998,10 +2111,10 @@ city</string>
      <widget class="QListWidget" name="topics_status">
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>130</x>
         <y>10</y>
-        <width>256</width>
-        <height>192</height>
+        <width>151</width>
+        <height>111</height>
        </rect>
       </property>
       <property name="font">
@@ -2016,10 +2129,10 @@ city</string>
      <widget class="QListWidget" name="cities_status">
       <property name="geometry">
        <rect>
-        <x>470</x>
+        <x>400</x>
         <y>10</y>
-        <width>256</width>
-        <height>192</height>
+        <width>151</width>
+        <height>111</height>
        </rect>
       </property>
       <property name="font">

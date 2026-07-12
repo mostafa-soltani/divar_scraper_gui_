@@ -3,15 +3,15 @@ from PySide6.QtWidgets import QMessageBox
 class Set_Min_Max:
 
     def __init__(self,window):
-        self.window = window
+        self.widget = window
 
     def set_price(self) -> tuple:
-        minimum = self.window.minimum_price.text().strip()
-        maximum = self.window.maximum_price.text().strip()
+        minimum = self.widget.minimum_price.text().strip()
+        maximum = self.widget.maximum_price.text().strip()
 
         if not minimum and not maximum:
             QMessageBox.warning(
-                self.window,
+                self.widget,
                 'Price Filter',
                 'please Enter at Least One Price'
             )

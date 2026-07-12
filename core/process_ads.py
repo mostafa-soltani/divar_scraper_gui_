@@ -2,6 +2,8 @@ import os
 from core.services import stats,log,save,extractor
 from storage.SQLite_database import SQLDatabase
 from config.ad import Ad
+import datetime
+
 
 sql_database = SQLDatabase()
 
@@ -13,6 +15,8 @@ class process_ads:
     """
 
     def __init__(self):
+        self.city = None
+        self.datetime = datetime.datetime.now().strftime('%Y/%M/%D/ hour : %H ,%m , %s')
         pass
 
     def process(
@@ -23,7 +27,8 @@ class process_ads:
             database_type,
             cancel_token,
             state,
-            url
+            url,
+            signals
             ) -> object:
         """
         process ads is a class to process pages of data and ads and save the ads in databases who the user choose.
@@ -72,34 +77,82 @@ class process_ads:
         )
 
         stats.pagecount()
-        for database in database_name:
-            self.database_name = database
+        
+
+        self.database_name = database_name
+        signals.current_city.connect(self.city_city)
+        
 
 
-            if page:
-                if cancel_token.is_cancelled():
-                    return
+        if page:
+            if cancel_token.is_cancelled():
+                return
 
-                if database_type == 1:
+            if database_type == 1:
+                data = []
+                for p in page:
+                    row = [
+                    p["title"],
+                    self.city,
+                    p["description"],
+                    p["state"],
+                    self.datetime
+                    ]
 
-                    self.__save_sql(page)
+                    data.append(row)
+
+                signals.ads.emit(data)
+
+                self.__save_sql(page)
                     
 
-                elif database_type == 2:
-                    self.__save_csv(page)
+            elif database_type == 2:
+                data = []
+                for p in page:
+                    row = [
+                    p["title"],
+                    self.city,
+                    p["description"],
+                    p["state"],
+                    self.datetime
+                    ]
 
-                else:
-                    self.__save_sql(page)
-                    self.__save_csv(page)
+                    data.append(row)
+
+                signals.ads.emit(data)
+
+                self.__save_csv(page)
+
+            else:
+                data = []
+                for p in page:
+                    row = [
+                    p["title"],
+                    self.city,
+                    p["dexcription"],
+                    p["state"],
+                    self.datetime
+                    ]
+
+                    data.append(row)
+
+                signals.ads.emit(data)
+
+                self.__save_sql(page)
+                self.__save_csv(page)
 
 
-                stats.adsfound(len(page))
+            stats.adsfound(len(page))
 
-            level = "good" if state == 200 else "bad"
+        level = "good" if state == 200 else "bad"
 
-            log.readed_page(stats.page_count,stats.ads_found)
+        log.readed_page(stats.page_count,stats.ads_found)
+        signals.page.emit(stats.page_count)
+        signals.ad_found.emit(stats.ads_found)
+        signals.ad_saved.emit(stats.ads_saved)
+        signals.suplicate.emit(stats.ads_found - stats.ads_saved)
 
-            log.connect_log(
+        log.connect_log(
                         conection=state,
                         level=level,
                         url=url,
@@ -108,6 +161,10 @@ class process_ads:
                         )
         
         return sql_database
+    
+    def city_city(self,message):
+        self.city = message
+
 
     def __save_sql(self,page) -> None:
 

@@ -22,6 +22,9 @@ class SearchController:
         
         for data_base in searchconfig.database_name:
 
+            if self.cancel_token.is_cancelled():
+                return
+
 
             log.search_log(
                 topic=searchconfig.topics,
@@ -33,7 +36,6 @@ class SearchController:
 
         self.cancel_token.reset()
 
-        print('start_searchcontrol')
         worker = SearchWorker(
             searchconfig,
             self.cancel_token)

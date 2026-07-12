@@ -14,7 +14,7 @@ class Paginator:
             headers,
             payloads,
             timeout,
-            cancel_token
+            signals
             ):
         
         """
@@ -42,6 +42,7 @@ class Paginator:
         self.pagination = None
 
         self.finished = False
+        self.signals = signals
 
     def fetch_page(self) :
 
@@ -59,12 +60,15 @@ class Paginator:
         request_payloads["pagination_data"] = self.pagination
 
 
+
         page_json,status = self.client.post(
             url = self.url,
             payloads = request_payloads,
             headers = self.headers,
             timeout = self.timeout
         )
+        self.signals.current_connection.emit(status)
+
 
         return page_json,status
     

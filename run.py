@@ -12,15 +12,11 @@ window.window.show()
 
 sys.exit(app.exec())
 
-print("1")
 
 app = QApplication(sys.argv)
-print("2")
 
 window = MainWindow()
-print("3")
 
 window.window.show()
-print("4")
 
 sys.exit(app.exec())

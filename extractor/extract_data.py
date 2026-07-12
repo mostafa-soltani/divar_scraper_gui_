@@ -74,7 +74,6 @@ class DivarExtractor:
 
         except Exception as e:
 
-            print('dfhasdhgfakdhfgajdf + ')
 
             print(Fore.YELLOW+"extract error:", e)
 

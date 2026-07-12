@@ -13,7 +13,7 @@ from ui_managares.topic_manager import Topic
 from ui_managares.city_manager import City
 from ui_managares.database_manager import Database
 from filters.City_list_event import CityListFilter
-from gui.progress_dialog import Progress
+from models.ads_model import AdsModel
 
 find_city = CityResolver()
 
@@ -41,6 +41,7 @@ class MainWindow:
             self.minimum = None
             self.maximum = None
             self.last_search = None
+            self.city = None
             self.controller = SearchController()
             self.manager_config = build_config(
                 selected_cities=self.selected_cities
@@ -51,6 +52,10 @@ class MainWindow:
             self.city_filter = CityListFilter(self,self.city_manager)
             self.past_search = LoadPastSearch(self.window)
             self.set_min_max = Set_Min_Max(self.window)
+            self.model = AdsModel([])
+
+            self.window.ads_table.setModel(self.model)
+
             self.window.founded_cities.installEventFilter(self.city_filter)
             self.window.added_cities.installEventFilter(self.city_filter)
         except Exception as e:
@@ -76,6 +81,7 @@ class MainWindow:
         if config:
 
             self.selected_cities = config.selected_cities
+
             self.database_manager.save(database=config.database_name,db_type=config.database_type)
         else:
             pass
@@ -123,9 +129,7 @@ class MainWindow:
             )
         
     def selected_cities_func(self):
-        print(self.selected_cities)
         self.selected_cities = self.city_manager.add_city()
-        print(self.selected_cities)
 
         
     def topic_save(self):
@@ -144,7 +148,13 @@ class MainWindow:
         self.window.database_name.clear()
 
 
+    def ads_table(self,data):
 
+        self.model._data.extend(data)
+
+        self.model.layoutChanged.emit()
+            
+    
 
     def min_max_saver(self):
 
@@ -171,6 +181,58 @@ class MainWindow:
         
         self.value = self.window.state_str.text().strip().lower()
 
+    def update_topic(self, topic):
+
+        self.window.current_topic.setText(topic)
+
+    def update_city(self, city):
+
+        self.window.current_city.setText(city)
+
+    def duplicate(self,message):
+        
+        self.window.duplicate.setText(message)
+
+
+    def update_database(self, database):
+
+        self.window.current_db_name.setText(database)
+
+    def connection_status(self,message):
+        self.window.current_state.setText(str(message))
+
+    def page_num(self,message):
+        self.window.current_page.setText(str(message))
+
+    def ad_found(self,message):
+        self.window.ads_found.setText(str(message))
+
+    def ad_saved(self,message):
+        self.window.ads_saved.setText(str(message))
+
+
+
+
+    def search_finished(self):
+        QMessageBox.information(
+            self.window,
+            "Done",
+            "Search completed."
+        )
+
+    def search_cancelled(self):
+        QMessageBox.information(
+            self.window,
+            "Cancelled",
+            "Search cancelled."
+        )
+
+    def show_error(self, message):
+        QMessageBox.critical(
+            self.window,
+            "Error",
+            message
+        )
 
 
 
@@ -181,7 +243,6 @@ class MainWindow:
         
         self.search = True
 
-        print(self.selected_cities)
 
         config = build_config(
             window=self.window,
@@ -206,7 +267,6 @@ class MainWindow:
         worker = self.controller.start(
             searchconfig=self.searchconfig)
         
-        self.window.cancel.clicked.connect(self.controller.cancel)
 
         self.last_search = self.searchconfig
 
@@ -220,12 +280,56 @@ class MainWindow:
             self.window.topics_status.addItem(topic)
             self.window.cities_status.addItem(city)
 
-        print('setup for info tab')
 
-        info_page = Progress(self.window,worker).setup()
 
+        worker.signals.progress.connect(
+            self.window.progressBar.setValue
+        )
+
+        worker.signals.current_topic.connect(
+            self.update_topic
+        )
+
+        worker.signals.current_city.connect(
+            self.update_city
+        )
+
+
+        worker.signals.current_database.connect(
+            self.update_database
+        )
+
+        worker.signals.page.connect(
+            self.page_num
+        )
+
+        worker.signals.ad_found.connect(
+            self.ad_found
+        )
+        worker.signals.ad_saved.connect(
+            self.ad_saved
+        )
+
+        worker.signals.duplicate.connect(
+            self.duplicate
+        )
+ 
+
+        worker.signals.finished.connect(
+            self.search_finished
+        )
+
+        worker.signals.cancelled.connect(
+            self.search_cancelled
+        )
+
+        worker.signals.error.connect(
+            self.show_error
+        )
+
+        worker.signals.ads.connect(self.ads_table)
         
-
-        worker.signals.cancelled.connect(info_page.search_cancelled)
-        worker.signals.finished.connect(info_page.search_finished)
-        worker.signals.error.connect(info_page.show_error)
+        self.window.cancel.clicked.connect(self.controller.cancel)
+        worker.signals.cancelled.connect(self.search_cancelled)
+        worker.signals.finished.connect(self.search_finished)
+        worker.signals.error.connect(self.show_error)

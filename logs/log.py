@@ -82,7 +82,7 @@ class log_data:
         """
 
 
-        if error_database ==None:
+        if error_file == None:
         
             error_database = 'databases/error_log.json'
         
@@ -94,7 +94,7 @@ class log_data:
                 "error": str(error)
             }
 
-        json_database.save(error_database,error_data,type='w')
+        json_database.save(error_file,error_data,type='w')
 
     def final_log(
             self,

@@ -9,7 +9,7 @@ class BuildSearchConfig:
 
     def __init__(self, config):
 
-        self.window = config.window
+        self.widget = config.window
 
         self.selected_cities = config.selected_cities
 
@@ -21,9 +21,9 @@ class BuildSearchConfig:
             selected_cities=self.selected_cities
         )
 
-        self.topic_manager = Topic(self.window)
-        self.city_manager = City(self.window, self.manager_config)
-        self.database_manager = Database(self.window)
+        self.topic_manager = Topic(self.widget)
+        self.city_manager = City(self.widget, self.manager_config)
+        self.database_manager = Database(self.widget)
 
     def collect_search_data(self):
         database_name = []
@@ -32,23 +32,22 @@ class BuildSearchConfig:
 
         cities = {}
 
-        for i in range(self.window.added_cities.count()):
-            city = self.window.added_cities.item(i).text()
-            print(self.selected_cities)
+        for i in range(self.widget.added_cities.count()):
+            city = self.widget.added_cities.item(i).text()
             cities[city] = self.selected_cities[city]
 
-        for item in range(self.window.database_lists.count()):
+        for item in range(self.widget.database_lists.count()):
 
-            database_name.append(self.window.database_lists.item(item).text().strip())
+            database_name.append(self.widget.database_lists.item(item).text().strip())
 
 
-        if self.window.sqlite_radio.isChecked():
+        if self.widget.sqlite_radio.isChecked():
             database_type = 1
 
-        if self.window.csv_radio.isChecked():
+        elif self.widget.csv_radio.isChecked():
             database_type = 2
 
-        if self.window.csv_radio.isChecked() and self.window.sqlite_radio.isChecked():
+        elif self.widget.csv_radio.isChecked() and self.widget.sqlite_radio.isChecked():
             database_type = 3
 
         else:
@@ -60,23 +59,22 @@ class BuildSearchConfig:
 
         filters = {}
 
-        if self.window.price_filter.isChecked():
+        if self.widget.price_filter.isChecked():
 
             filters["price"] = {
                 "minimum": self.minimum,
                 "maximum": self.maximum
             }
 
-        if self.window.name_filter.isChecked():
+        if self.widget.name_filter.isChecked():
 
             filters["name"] = self.value
 
-        if self.window.state_filter.isChecked():
+        if self.widget.state_filter.isChecked():
 
             filters["state"] = self.value
 
 
-        print(topics,' + ', cities , ' + ', database_name , " + ", database_type , " + ", filters)
 
         
         searchConfig = searchConfigs(
@@ -87,7 +85,6 @@ class BuildSearchConfig:
             filters=filters
         )
 
-        print(searchConfig)
     
         return searchConfig 
     

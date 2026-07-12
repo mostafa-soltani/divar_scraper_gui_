@@ -2,7 +2,6 @@ from core.request_api import ApiRequest
 from PySide6.QtCore import QRunnable,Slot
 from signals.signals import WorkerSignals
 from config.config import config_api_data
-from core.Cancel_token import CancelToken
 import datetime
 
 
@@ -47,7 +46,6 @@ class SearchWorker(QRunnable):
                 self.signals.cancelled.emit()
                 return
                     
-            self.signals.finished.emit()
 
         except Exception as e:
             self.signals.error.emit(str(e))
