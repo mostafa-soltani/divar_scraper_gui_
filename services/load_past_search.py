@@ -15,7 +15,7 @@ class LoadPastSearch:
         self.database_type = None
         pass
     
-    def get(self):
+    def get(self,logsignal):
         try:
             result = past_data.Past_Search()
 
@@ -64,6 +64,9 @@ class LoadPastSearch:
                         self.widget.database_lists.addItem(self.database_name)
             else:
                 return None
+            
+
+            logsignal.past_search.emit()
             
             return past_search_search(selected_cities=self.selected_cities, database_name=self.database_name,database_type=self.database_type)
         

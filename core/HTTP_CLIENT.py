@@ -3,7 +3,7 @@ from core.Cancel_token import CancelToken
 
 init()
 
-cancel_token = CancelToken()
+
 
 class Paginator:
 
@@ -14,7 +14,9 @@ class Paginator:
             headers,
             payloads,
             timeout,
-            signals
+            signals,
+            cancel_token,
+            log_signal
             ):
         
         """
@@ -42,7 +44,12 @@ class Paginator:
         self.pagination = None
 
         self.finished = False
+
+        self.cancel_token = cancel_token
+
         self.signals = signals
+
+        self.log_signal = log_signal
 
     def fetch_page(self) :
 
@@ -52,8 +59,8 @@ class Paginator:
         return tuple
         """
 
-        if cancel_token.is_cancelled():
-            return
+        if self.cancel_token.is_cancelled():
+            return StopIteration
 
         request_payloads = self.payloads.copy()
 
@@ -65,9 +72,11 @@ class Paginator:
             url = self.url,
             payloads = request_payloads,
             headers = self.headers,
-            timeout = self.timeout
+            cancel_token = self.cancel_token,
+            timeout = self.timeout,
         )
-        self.signals.current_connection.emit(status)
+        self.signals.connection.emit(status)
+        self.log_signal.connection.emit(status)
 
 
         return page_json,status
@@ -94,6 +103,8 @@ class Paginator:
     def __next__(self) -> tuple:
         
         if self.finished:
+            raise StopIteration
+        if self.cancel_token.is_cancelled():
             raise StopIteration
         
         page_json,status = self.fetch_page()

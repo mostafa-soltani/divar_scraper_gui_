@@ -67,5 +67,26 @@ class build_config:
     minimum: Optional[int] = None
     maximum: Optional[int] = None
 
-    value: Optional[str] = None
+    state_value: Optional[str] = None
+    name_value: Optional[str] = None
+    
+@ dataclass
+
+class check_past_search:
+    topics: Optional[list] = None
+
+    cities: Optional[dict] = None
+    
+@dataclass
+class c_config:
+
+
+
+    selected_cities: Optional[dict] =None
+
+    minimum: Optional[int] = None
+    maximum: Optional[int] = None
+
+    state_value: Optional[str] = None
+    name_value: Optional[str] = None
     

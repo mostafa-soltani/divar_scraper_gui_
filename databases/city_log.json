@@ -1,18 +1,19 @@
 {
    "topic": [
-      "iphone11",
-      "iphone 12 pro",
-      "iphone13"
+      "pc",
+      "iphone11"
    ],
    "city": [
-      "tehran",
-      "rasht"
+      "tehran"
    ],
    "city_ids": [
-      "1",
-      "12"
+      "1"
    ],
-   "database_name": "iphone_db",
-   "database_path": "databases/iphone_db",
-   "database_type": 1
+   "database_name": [
+      "new"
+   ],
+   "database_path": [
+      "databases/new"
+   ],
+   "database_type": 2
 }

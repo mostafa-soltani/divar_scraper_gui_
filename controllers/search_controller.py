@@ -9,36 +9,38 @@ api_config = config_api_data
 search_config = searchConfigs
 log = log_data()
 
+
 class SearchController:
 
     def __init__(self):
            
         self.pool = QThreadPool.globalInstance()
+
         self.cancel_token = CancelToken()
+
 
     def start(
             self,
-            searchconfig):
+            searchconfig,
+            log_signal):
         
-        for data_base in searchconfig.database_name:
+        
 
-            if self.cancel_token.is_cancelled():
-                return
+        log.search_log(
+            topic=searchconfig.topics,
+            city=list(searchconfig.cities.keys()),
+            city_ids=list(searchconfig.cities.values()),
+            database_name=searchconfig.database_name,
+            database_type=searchconfig.database_type
 
-
-            log.search_log(
-                topic=searchconfig.topics,
-                city=list(searchconfig.cities.keys()),
-                city_ids=list(searchconfig.cities.values()),
-                database_name=data_base,
-                database_type=searchconfig.database_type
-            )
+        )
 
         self.cancel_token.reset()
 
         worker = SearchWorker(
             searchconfig,
-            self.cancel_token)
+            self.cancel_token,
+            log_signal)
         
         
 

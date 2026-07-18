@@ -1,6 +1,5 @@
 import time
 import datetime
-from config.config import Data_Config
 from colorama import init
 from core.HTTP_CLIENT import Paginator
 from core.process_ads import process_ads
@@ -26,6 +25,7 @@ class ApiRequest:
     def __init__(self):
         self.state = None
         self.max_retry = config.max_retry
+        self.datetime = datetime.datetime.now()
 
 
     def request(
@@ -37,7 +37,8 @@ class ApiRequest:
         cancel_token,
         filters,
         database_name,
-        database_type
+        database_type,
+        log_signal
     ):
         
         """
@@ -74,9 +75,15 @@ class ApiRequest:
 
 
 
-        total = len(topics) * len(cities)
+        total = len(topics) * len(cities) * len(database_name)
 
         current = 0
+
+        log_signal.topics.emit(topics)
+        log_signal.cities.emit(cities)
+        log_signal.databases.emit(database_name)
+        log_signal.database_type.emit(database_type)
+        log_signal.date_time.emit(str(self.datetime))
 
 
         try:
@@ -85,24 +92,27 @@ class ApiRequest:
                 signals.cancelled.emit()
                 return
             for database in database_name:
-                print('request',database)
                 if cancel_token.is_cancelled():
+                    timeout = 0
                     signals.cancelled.emit()
                     return
 
                 for city, city_id in cities.items():
                     if cancel_token.is_cancelled():
+                        timeout = 0
                         signals.cancelled.emit()
                         return
 
 
                     for topic in topics:
                         if cancel_token.is_cancelled():
+                            timeout = 0
                             signals.cancelled.emit()
                             return
 
                         for retry in range(self.max_retry):
                             if cancel_token.is_cancelled():
+                                timeout = 0
                                 signals.cancelled.emit()
                                 return
 
@@ -120,7 +130,7 @@ class ApiRequest:
 
 
                             try:
-                                print('trying')
+                                log_signal.start_search.emit()
 
                                 signals.current_topic.emit(topic)
 
@@ -135,7 +145,8 @@ class ApiRequest:
                                     city_id=city_id,
                                     cancel_token=cancel_token,
                                     topic=topic,
-                                    signals = signals
+                                    signals = signals,
+                                    log_signal = log_signal
                                 )
 
 
@@ -166,7 +177,10 @@ class ApiRequest:
                                 if retry + 1 == self.max_retry:
                                     print(f"Skip -> {city} | {topic}")
 
-                                time.sleep(3)
+                                if cancel_token.is_cancelled():
+                                    return
+                                
+                                time.sleep(0.5)
 
                     
                     
@@ -196,7 +210,8 @@ class ApiRequest:
         timeout,
         city_id,
         topic,
-        signals
+        signals,
+        log_signal
     ):
 
         return Paginator(
@@ -205,7 +220,9 @@ class ApiRequest:
             headers=headers,
             payloads=self._build_payload(city_id, topic),
             timeout=timeout,
-            signals = signals
+            signals = signals,
+            cancel_token=cancel_token,
+            log_signal=log_signal
         )
 
     def _process_pages(

@@ -33,7 +33,10 @@ class log_data:
                     "city": city,
                     "city_ids": city_ids,
                     "database_name": database_name,
-                    "database_path":f'databases/{database_name}',
+                    "database_path":[
+                        f"databases/{db_name}"
+                        for db_name in database_name
+                    ],
                     "database_type":database_type
                 }
         

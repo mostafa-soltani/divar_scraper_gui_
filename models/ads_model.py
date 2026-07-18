@@ -61,6 +61,22 @@ class AdsModel(QAbstractTableModel):
         ):
             return self.headers[section]
         
+    def append_rows(self,rows):
+
+        start = len(self._data)
+        end = start + len(rows) -1
+
+
+        self.beginInsertRows(
+            QModelIndex(),
+            start,
+            end
+        )
+
+        self._data.extend(rows)
+
+        self.endInsertRows()
+        
 
     
     

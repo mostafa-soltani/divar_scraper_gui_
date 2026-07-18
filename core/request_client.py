@@ -4,7 +4,6 @@ from core.services import log
 from core.Cancel_token import CancelToken
 
 ask_data = config_api_data()
-cancel_token = CancelToken()
 
 class RequestClient:
 
@@ -17,6 +16,7 @@ class RequestClient:
             url,
             payloads,
             headers,
+            cancel_token,
             timeout= 10
     ) :
         """
@@ -37,6 +37,7 @@ class RequestClient:
                 
                
                 if cancel_token.is_cancelled():
+                    timeout = 0
                     return
 
                 response = self.session.post(
@@ -69,6 +70,10 @@ class RequestClient:
                     print(
                         f'rate limit. wait {wait}s'
                     )
+
+                    if cancel_token.is_cancelled():
+                        timeout = 0
+                        return
 
                     time.sleep(wait)
 

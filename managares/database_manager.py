@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QMessageBox
 from filters.ok_event import KeyFilter
-
+import traceback
 
 class Database:
     def __init__(self,widget) -> None:
@@ -18,22 +18,28 @@ class Database:
 
         return self.database_info
 
-    def save(self,database,db_type):
+    def save(self):
         """
         save to database_lists
         """
-        if database is list:
-            for db in database:
-                self.widget.database_lists.addItem(db)
-                self.database_info[db] = db_type
 
-        elif database is dict:
-            for db,db_type1 in database:
-                self.widget.database_lists.addItem(db)
-                self.database_info[db] = db_type1
-        else:
-            self.widget.database_lists.addItem(database)
-            self.database_info[database] = db_type
+        database = []
+
+        database = self.widget.dataabse_name.text().strip()
+
+        if not database:
+            QMessageBox.critical(
+                self.widget,
+                'database name',
+                'inter the database name and press this.',
+                QMessageBox.StandardButton.Ok
+            )
+
+            return
+        self.widget.dataabse_lists.addItem(database)
+        self.widget.database_name.clear()
+
+        
 
         
     def delete(self):
@@ -50,5 +56,13 @@ class Database:
                 self.widget.database_lists.row(item)
             )
 
-    
+    def add_item(self,db_name):
+        if isinstance( db_name,list):
+            for db in db_name:
+                self.widget.database_lists.addItem(db)
+
+
+        else:
+
+            self.widget.database_lists.addItem(db_name)
   

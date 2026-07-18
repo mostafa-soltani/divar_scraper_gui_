@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QMessageBox
 
+
 class Set_Min_Max:
 
     def __init__(self,window):

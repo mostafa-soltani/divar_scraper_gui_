@@ -1,19 +1,20 @@
-from PySide6.QtUiTools import QUiLoader
-from PySide6.QtCore import QFile
 from PySide6.QtWidgets import QMessageBox
-from PySide6.QtGui import QRegularExpressionValidator
-from PySide6.QtCore import QRegularExpression
 from services.load_past_search import LoadPastSearch
 from controllers.search_controller import SearchController
-from config.config import build_config
+from config.config import c_config,build_config
 from storage.city_resolver import CityResolver
 from filters.min_max_filter import Set_Min_Max
-from builders.search_builders import BuildSearchConfig
-from ui_managares.topic_manager import Topic
-from ui_managares.city_manager import City
-from ui_managares.database_manager import Database
+from managares.topic_manager import Topic
+from managares.city_manager import City
+from managares.database_manager import Database
 from filters.City_list_event import CityListFilter
-from models.ads_model import AdsModel
+from core.ui_loader import Load_Ui
+from core.Validators_Setup import Validator_price
+from managares.search_manager import Search_manager
+from signals.signals import LogSignals
+from managares.filter_manager import Filter_Manager
+from managares.log_manager import Log_manager
+
 
 find_city = CityResolver()
 
@@ -35,13 +36,14 @@ class MainWindow:
 
             self.loaded_cities = set()
             self.selected_cities = {}
-            self.value = None
+            self.name_value = None
+            self.state_value = None
             self.searchconfig = None
             self.search = False
             self.minimum = None
             self.maximum = None
-            self.last_search = None
-            self.city = None
+            self.database_name = None
+            self.logsignal = LogSignals()
             self.controller = SearchController()
             self.manager_config = build_config(
                 selected_cities=self.selected_cities
@@ -52,52 +54,40 @@ class MainWindow:
             self.city_filter = CityListFilter(self,self.city_manager)
             self.past_search = LoadPastSearch(self.window)
             self.set_min_max = Set_Min_Max(self.window)
-            self.model = AdsModel([])
+            self.ui = Load_Ui('new_ui/new.ui')
+            self.validator = Validator_price(self.window)
+            self.searcher = Search_manager(self.window,self.logsignal)
+            self.filter_manager = Filter_Manager(self.window)
+            self.log_manager = Log_manager(self.window,log_signal=self.logsignal)
 
-            self.window.ads_table.setModel(self.model)
+
+
 
             self.window.founded_cities.installEventFilter(self.city_filter)
             self.window.added_cities.installEventFilter(self.city_filter)
         except Exception as e:
             print(e)
     def _load_ui(self):
-        loader = QUiLoader()
-
-        file = QFile('new_ui/new.ui')
-
-        file.open(QFile.ReadOnly)
-
-        self.window = loader.load(file)
-
-        file.close()
-
-
-
+        self.window = self.ui.load_ui(self.logsignal)
 
     def _load_past_search(self):
 
-        config = self.past_search.get()
+        config = self.past_search.get(self.logsignal)
 
         if config:
 
             self.selected_cities = config.selected_cities
 
-            self.database_manager.save(database=config.database_name,db_type=config.database_type)
+            self.database_manager.add_item(db_name=config.database_name)
         else:
             pass
 
     def _setup_validators(self):
+        self.validator.setup()
 
-        validator = QRegularExpressionValidator(
-            QRegularExpression(r"\d{1,15}")
-        )
-
-
-        for item in (
-            self.window.minimum_price,
-            self.window.maximum_price
-        ):
-            item.setValidator(validator)
+    def _log_satus(self):
+        self.log_manager.show_log()
+        
 
     def _connect_signals(self):
         self.window.topic.returnPressed.connect(self.topic_save)
@@ -138,6 +128,8 @@ class MainWindow:
         
     def database_save(self):
 
+        self.database_manager.save()
+
         database_name = self.window.database_name.text().strip().lower()
 
         if not database_name:
@@ -148,188 +140,36 @@ class MainWindow:
         self.window.database_name.clear()
 
 
-    def ads_table(self,data):
-
-        self.model._data.extend(data)
-
-        self.model.layoutChanged.emit()
-            
     
 
     def min_max_saver(self):
-
-        self.minimum,self.maximum = self.set_min_max.set_price()
+        self.minimum,self.maximum = self.filter_manager.get_price()
     
     def price_panle(self):
-
         self.window.price_save.clicked.connect(self.min_max_saver)
 
-        
     def name_panle(self):
-
         self.window.name_save.clicked.connect(self.name_saver)
 
     def name_saver(self):
-
-        self.value = self.window.name_str.text().strip().lower()
+        self.name_value = self.filter_manager.get_name()
 
     def state_panle(self):
-
         self.window.state_save.clicked.connect(self.state_saver)
 
     def state_saver(self):
-        
-        self.value = self.window.state_str.text().strip().lower()
+        self.state_value = self.filter_manager.get_state()
 
-    def update_topic(self, topic):
-
-        self.window.current_topic.setText(topic)
-
-    def update_city(self, city):
-
-        self.window.current_city.setText(city)
-
-    def duplicate(self,message):
-        
-        self.window.duplicate.setText(message)
-
-
-    def update_database(self, database):
-
-        self.window.current_db_name.setText(database)
-
-    def connection_status(self,message):
-        self.window.current_state.setText(str(message))
-
-    def page_num(self,message):
-        self.window.current_page.setText(str(message))
-
-    def ad_found(self,message):
-        self.window.ads_found.setText(str(message))
-
-    def ad_saved(self,message):
-        self.window.ads_saved.setText(str(message))
-
-
-
-
-    def search_finished(self):
-        QMessageBox.information(
-            self.window,
-            "Done",
-            "Search completed."
-        )
-
-    def search_cancelled(self):
-        QMessageBox.information(
-            self.window,
-            "Cancelled",
-            "Search cancelled."
-        )
-
-    def show_error(self, message):
-        QMessageBox.critical(
-            self.window,
-            "Error",
-            message
-        )
 
 
 
     def start_search(self):
-
-        if self.search:
-            return
-        
-        self.search = True
-
-
-        config = build_config(
-            window=self.window,
+        config = c_config(
             selected_cities=self.selected_cities,
             minimum=self.minimum,
             maximum=self.maximum,
-            value=self.value
+            state_value=self.state_value,
+            name_value=self.name_value
         )
-
-        self.searchconfig = BuildSearchConfig(config).collect_search_data()
-
+        self.searcher.Start(c_config=config)
         
-
-        if self.searchconfig == self.last_search:
-            QMessageBox.information(
-                self.window,
-                'search',
-                "this search has already been started"
-            )
-            return 
-
-        worker = self.controller.start(
-            searchconfig=self.searchconfig)
-        
-
-        self.last_search = self.searchconfig
-
-        
-
-        topics = Topic(self.window).collect()
-        cities = City(self.window,config=config).collect()
-
-        for topic,city in zip(topics,cities):
-
-            self.window.topics_status.addItem(topic)
-            self.window.cities_status.addItem(city)
-
-
-
-        worker.signals.progress.connect(
-            self.window.progressBar.setValue
-        )
-
-        worker.signals.current_topic.connect(
-            self.update_topic
-        )
-
-        worker.signals.current_city.connect(
-            self.update_city
-        )
-
-
-        worker.signals.current_database.connect(
-            self.update_database
-        )
-
-        worker.signals.page.connect(
-            self.page_num
-        )
-
-        worker.signals.ad_found.connect(
-            self.ad_found
-        )
-        worker.signals.ad_saved.connect(
-            self.ad_saved
-        )
-
-        worker.signals.duplicate.connect(
-            self.duplicate
-        )
- 
-
-        worker.signals.finished.connect(
-            self.search_finished
-        )
-
-        worker.signals.cancelled.connect(
-            self.search_cancelled
-        )
-
-        worker.signals.error.connect(
-            self.show_error
-        )
-
-        worker.signals.ads.connect(self.ads_table)
-        
-        self.window.cancel.clicked.connect(self.controller.cancel)
-        worker.signals.cancelled.connect(self.search_cancelled)
-        worker.signals.finished.connect(self.search_finished)
-        worker.signals.error.connect(self.show_error)

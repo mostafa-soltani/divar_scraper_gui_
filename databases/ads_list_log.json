@@ -622,4 +622,130 @@
    "city": "tehran",
    "ads_found": 1883,
    "ads_saved": 1883
+}{
+   "datetime": "13:20:34:28",
+   "database_name": "teh",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 362,
+   "ads_saved": 1
+}{
+   "datetime": "14:20:34:23",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 1490,
+   "ads_saved": 1488
+}{
+   "datetime": "14:21:04:29",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 4040,
+   "ads_saved": 2551
+}{
+   "datetime": "14:21:04:47",
+   "database_name": "new2",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 4954,
+   "ads_saved": 3464
+}{
+   "datetime": "14:21:24:36",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 338,
+   "ads_saved": 1
+}{
+   "datetime": "14:21:30:46",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 194,
+   "ads_saved": 1
+}{
+   "datetime": "14:21:35:48",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 266,
+   "ads_saved": 1
+}{
+   "datetime": "15:21:01:19",
+   "database_name": "manitor",
+   "topic": "مانیتور",
+   "city": "tehran",
+   "ads_found": 4721,
+   "ads_saved": 4721
+}{
+   "datetime": "15:21:19:53",
+   "database_name": "manitor",
+   "topic": "مانیتور کامپیوتر",
+   "city": "tehran",
+   "ads_found": 9480,
+   "ads_saved": 9480
+}{
+   "datetime": "16:20:50:08",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 3975,
+   "ads_saved": 268
+}{
+   "datetime": "17:16:43:59",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 3952,
+   "ads_saved": 86
+}{
+   "datetime": "17:16:59:17",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 3955,
+   "ads_saved": 8
+}{
+   "datetime": "17:17:09:14",
+   "database_name": "new",
+   "topic": "iphone11",
+   "city": "tehran",
+   "ads_found": 1165,
+   "ads_saved": 1163
+}{
+   "datetime": "17:17:19:01",
+   "database_name": "new",
+   "topic": "iphone11",
+   "city": "tehran",
+   "ads_found": 98,
+   "ads_saved": 98
+}{
+   "datetime": "17:17:25:58",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 3959,
+   "ads_saved": 10
+}{
+   "datetime": "17:17:27:08",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 4465,
+   "ads_saved": 10
+}{
+   "datetime": "17:17:39:47",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 3961,
+   "ads_saved": 4
+}{
+   "datetime": "17:17:40:51",
+   "database_name": "new",
+   "topic": "pc",
+   "city": "tehran",
+   "ads_found": 4515,
+   "ads_saved": 4
 }

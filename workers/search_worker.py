@@ -9,7 +9,8 @@ class SearchWorker(QRunnable):
     def __init__(
             self,
             search_config,
-            cancel_token
+            cancel_token,
+            log_signal
             ) -> None:
         super().__init__()
 
@@ -19,6 +20,7 @@ class SearchWorker(QRunnable):
         self.signals = WorkerSignals()
         self.search_config = search_config
         self.api_config = config_api_data()
+        self.log_signal = log_signal
         self.url = self.api_config.url
         self.cancel_token = cancel_token
         self.filters = search_config.filters
@@ -39,7 +41,8 @@ class SearchWorker(QRunnable):
                 cancel_token = self.cancel_token,
                 filters=self.filters,
                 database_name=self.database_name,
-                database_type=self.database_type
+                database_type=self.database_type,
+                log_signal = self.log_signal
                 )
             
             if self.cancel_token.is_cancelled():

@@ -1,8 +1,8 @@
 from config.config import searchConfigs
-from ui_managares.topic_manager import Topic
-from ui_managares.city_manager import City
-from ui_managares.database_manager import Database
-from config.config import build_config
+from managares.topic_manager import Topic
+from managares.city_manager import City
+from managares.database_manager import Database
+from config.config import build_config,check_past_search
 
 
 class BuildSearchConfig:
@@ -15,7 +15,8 @@ class BuildSearchConfig:
 
         self.minimum = config.minimum
         self.maximum = config.maximum
-        self.value = config.value
+        self.name_value = config.name_value
+        self.state_value = config.state_value
 
         self.manager_config = build_config(
             selected_cities=self.selected_cities
@@ -44,10 +45,10 @@ class BuildSearchConfig:
         if self.widget.sqlite_radio.isChecked():
             database_type = 1
 
-        elif self.widget.csv_radio.isChecked():
+        if self.widget.csv_radio.isChecked():
             database_type = 2
 
-        elif self.widget.csv_radio.isChecked() and self.widget.sqlite_radio.isChecked():
+        if self.widget.csv_radio.isChecked() and self.widget.sqlite_radio.isChecked():
             database_type = 3
 
         else:
@@ -68,13 +69,29 @@ class BuildSearchConfig:
 
         if self.widget.name_filter.isChecked():
 
-            filters["name"] = self.value
+            filters["name"] = self.name_value
 
         if self.widget.state_filter.isChecked():
 
-            filters["state"] = self.value
+            filters["state"] = self.state_value
 
 
+        to_pst = check_past_search.topics
+        to_cit = check_past_search.cities
+        
+        if to_cit and to_pst:
+            if topics in to_pst and cities in to_cit:
+                pass
+            else:
+                check_past_search(
+                    topics=topics,
+                    cities=cities
+                )
+
+        else:
+            pass
+
+        
 
         
         searchConfig = searchConfigs(

@@ -16,7 +16,7 @@ class process_ads:
 
     def __init__(self):
         self.city = None
-        self.datetime = datetime.datetime.now().strftime('%Y/%M/%D/ hour : %H ,%m , %s')
+        self.datetime = datetime.datetime.now().strftime('%Y/%M/%D/%H :%m :%S')
         pass
 
     def process(
@@ -129,7 +129,7 @@ class process_ads:
                     row = [
                     p["title"],
                     self.city,
-                    p["dexcription"],
+                    p["description"],
                     p["state"],
                     self.datetime
                     ]
@@ -150,7 +150,7 @@ class process_ads:
         signals.page.emit(stats.page_count)
         signals.ad_found.emit(stats.ads_found)
         signals.ad_saved.emit(stats.ads_saved)
-        signals.suplicate.emit(stats.ads_found - stats.ads_saved)
+        signals.duplicate.emit(stats.ads_found - stats.ads_saved)
 
         log.connect_log(
                         conection=state,
