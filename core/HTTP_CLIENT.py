@@ -60,7 +60,7 @@ class Paginator:
         """
 
         if self.cancel_token.is_cancelled():
-            return StopIteration
+            raise StopIteration
 
         request_payloads = self.payloads.copy()
 
@@ -74,6 +74,8 @@ class Paginator:
             headers = self.headers,
             cancel_token = self.cancel_token,
             timeout = self.timeout,
+            logsignal = self.log_signal,
+            signal = self.signals
         )
         self.signals.connection.emit(status)
         self.log_signal.connection.emit(status)

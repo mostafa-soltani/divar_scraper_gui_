@@ -11,7 +11,11 @@ class WorkerSignals(QObject):
 
     current_database = Signal(str)
 
-    page = Signal(int)
+    ads = Signal(list)
+
+    total_pages = Signal(int)
+
+    current_page = Signal(int)
 
     ad_found = Signal(int)
 
@@ -19,7 +23,7 @@ class WorkerSignals(QObject):
 
     duplicate = Signal(int)
 
-    connection = Signal(str)
+    connection = Signal(int)
 
     finished = Signal()
 
@@ -28,7 +32,7 @@ class WorkerSignals(QObject):
     error = Signal(str)
 
 
-class LogSignals(WorkerSignals):
+class LogSignals(QObject):
     date_time = Signal(str)
 
     topics = Signal(list)
@@ -48,4 +52,17 @@ class LogSignals(WorkerSignals):
     past_search = Signal()
 
     start_search = Signal()
-    
+
+    connection = Signal(int)
+
+    finished = Signal()
+
+    cancelled = Signal()
+
+    current_page = Signal(int)
+
+    current_topic = Signal(str)
+
+    current_city = Signal(str)
+
+    current_database = Signal(str)

@@ -11,12 +11,3 @@ window = MainWindow()
 window.window.show()
 
 sys.exit(app.exec())
-
-
-app = QApplication(sys.argv)
-
-window = MainWindow()
-
-window.window.show()
-
-sys.exit(app.exec())

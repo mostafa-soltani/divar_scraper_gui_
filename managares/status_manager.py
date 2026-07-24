@@ -71,6 +71,7 @@ class Status_Managers:
         )
 
     def show_error(self, message):
+        self.search = False
         QMessageBox.critical(
             self.widget,
             "Error",

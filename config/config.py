@@ -31,7 +31,7 @@ class config_api_data:
 
     default_database_name = 'ads'
 
-    timeout = 10
+    timeout = 2
 
 
 

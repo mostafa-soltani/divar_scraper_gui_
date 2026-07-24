@@ -85,9 +85,9 @@ class log_data:
         """
 
 
-        if error_file == None:
+        if error_file is None:
         
-            error_database = 'databases/error_log.json'
+            error_data = 'databases/error_log.json'
         
         error_data = {
                 "datetime": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),

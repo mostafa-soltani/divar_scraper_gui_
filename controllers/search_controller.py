@@ -51,5 +51,6 @@ class SearchController:
     
 
     def cancel(self):
+        self.search = False
         
         self.cancel_token.cancel()

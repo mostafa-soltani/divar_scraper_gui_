@@ -1,9 +1,6 @@
-from PySide6.QtWidgets import QMessageBox
 from services.load_past_search import LoadPastSearch
-from controllers.search_controller import SearchController
 from config.config import c_config,build_config
 from storage.city_resolver import CityResolver
-from filters.min_max_filter import Set_Min_Max
 from managares.topic_manager import Topic
 from managares.city_manager import City
 from managares.database_manager import Database
@@ -20,9 +17,28 @@ find_city = CityResolver()
 
 class MainWindow:
     def __init__(self):
-        self._load_ui()
+        self.ui = Load_Ui('new_ui/new.ui')
+        self.logsignal = LogSignals()
 
-        self._init_variables()
+        self.window = self._load_ui()
+
+        self.selected_cities = {}
+        self.name_value = None
+        self.state_value = None
+        self.minimum = None
+        self.maximum = None
+        self.manager_config = build_config(
+            selected_cities=self.selected_cities
+        )
+        self.topic_manager = Topic(self.window)
+        self.city_manager = City(self.window,self.manager_config)
+        self.database_manager = Database(self.window)
+        self.city_filter = CityListFilter(self,self.city_manager)
+        self.past_search = LoadPastSearch(self.window)
+        self.validator = Validator_price(self.window)
+        self.searcher = Search_manager(self.window,self.logsignal)
+        self.filter_manager = Filter_Manager(self.window)
+        self.log_manager = Log_manager(self.window,self.logsignal)
 
         self._load_past_search()
 
@@ -30,45 +46,17 @@ class MainWindow:
 
         self._connect_signals()
 
-    
-    def _init_variables(self):
-        try:
+        self._log_satus()
 
-            self.loaded_cities = set()
-            self.selected_cities = {}
-            self.name_value = None
-            self.state_value = None
-            self.searchconfig = None
-            self.search = False
-            self.minimum = None
-            self.maximum = None
-            self.database_name = None
-            self.logsignal = LogSignals()
-            self.controller = SearchController()
-            self.manager_config = build_config(
-                selected_cities=self.selected_cities
-            )
-            self.topic_manager = Topic(self.window)
-            self.city_manager = City(self.window,self.manager_config)
-            self.database_manager = Database(self.window)
-            self.city_filter = CityListFilter(self,self.city_manager)
-            self.past_search = LoadPastSearch(self.window)
-            self.set_min_max = Set_Min_Max(self.window)
-            self.ui = Load_Ui('new_ui/new.ui')
-            self.validator = Validator_price(self.window)
-            self.searcher = Search_manager(self.window,self.logsignal)
-            self.filter_manager = Filter_Manager(self.window)
-            self.log_manager = Log_manager(self.window,log_signal=self.logsignal)
+        self.window.founded_cities.installEventFilter(self.city_filter)
+        self.window.added_cities.installEventFilter(self.city_filter)
 
 
 
-
-            self.window.founded_cities.installEventFilter(self.city_filter)
-            self.window.added_cities.installEventFilter(self.city_filter)
-        except Exception as e:
-            print(e)
     def _load_ui(self):
-        self.window = self.ui.load_ui(self.logsignal)
+        self.window,self.logsignal = self.ui.load_ui(self.logsignal)
+        return self.window
+        
 
     def _load_past_search(self):
 
@@ -78,7 +66,6 @@ class MainWindow:
 
             self.selected_cities = config.selected_cities
 
-            self.database_manager.add_item(db_name=config.database_name)
         else:
             pass
 
@@ -124,23 +111,11 @@ class MainWindow:
         
     def topic_save(self):
 
-        self.topic_manager.save()
-        
+        self.topic_manager.save()     
+
     def database_save(self):
 
         self.database_manager.save()
-
-        database_name = self.window.database_name.text().strip().lower()
-
-        if not database_name:
-            QMessageBox.warning(self.window,'warning','the database section is empty',QMessageBox.StandardButton.Ok)
-            return
-        
-        self.window.database_lists.addItem(database_name)
-        self.window.database_name.clear()
-
-
-    
 
     def min_max_saver(self):
         self.minimum,self.maximum = self.filter_manager.get_price()

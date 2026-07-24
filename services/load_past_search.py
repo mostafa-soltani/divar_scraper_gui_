@@ -2,6 +2,7 @@ from services.check_past_search import Check_Past_search
 from PySide6.QtWidgets import QMessageBox
 from core.services import log
 from config.past_search_config import past_search_search
+from managares.database_manager import Database
 import traceback
 
 past_data = Check_Past_search()
@@ -13,6 +14,7 @@ class LoadPastSearch:
         self.selected_cities = {}
         self.database_name = None
         self.database_type = None
+        self.database_manager = Database(self.widget)
         pass
     
     def get(self,logsignal):
@@ -56,12 +58,8 @@ class LoadPastSearch:
                             self.selected_cities[city] = city_id
 
 
-                    if type(self.database_name) is list:
-                        for db in self.database_name:
-                            self.widget.database_lists.addItem(db)
-
-                    else:
-                        self.widget.database_lists.addItem(self.database_name)
+                    self.database_manager.add_item(self.database_name)
+                    
             else:
                 return None
             

@@ -17,7 +17,10 @@ class RequestClient:
             payloads,
             headers,
             cancel_token,
-            timeout= 10
+            logsignal,
+            signal,
+            timeout= 2
+
     ) :
         """
         make a session and post a ongoing rquest until has no nxt page
@@ -37,7 +40,8 @@ class RequestClient:
                 
                
                 if cancel_token.is_cancelled():
-                    timeout = 0
+                    signal.cancelled.emit()
+                    logsignal.cancelled.emit()
                     return
 
                 response = self.session.post(
@@ -72,7 +76,9 @@ class RequestClient:
                     )
 
                     if cancel_token.is_cancelled():
-                        timeout = 0
+                        signal.cancelled.emit()
+                        logsignal.cancelled.emit()
+
                         return
 
                     time.sleep(wait)

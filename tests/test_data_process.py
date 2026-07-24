@@ -28,7 +28,7 @@ payloads={
 def test_data_processing():
     result = process.request(url = ask_data.url,
                              data_config=data_config,
-                             timeout=10,
+                             timeout=2,
                              headers=ask_data.headers,
                              payloads=payloads)
     

@@ -5,11 +5,12 @@ from controllers.search_controller import SearchController
 from managares.topic_manager import Topic
 from managares.city_manager import City
 from managares.status_manager import Status_Managers
-from managares.log_manager import Log_manager
 
 
 class Search_manager:
     def __init__(self,widget,logsignal) -> None:
+        self.search = False
+        self.last_search = None
         self.widget = widget
         self.log_signal = logsignal
         self.controller = SearchController()
@@ -19,10 +20,7 @@ class Search_manager:
     def Start(
             self,
             c_config):
-        if self.search:
-            return
-        
-        self.search = True
+
 
 
         config = build_config(
@@ -39,12 +37,16 @@ class Search_manager:
         
 
         if self.searchconfig == self.last_search:
+
+            self.search = False
+
             QMessageBox.information(
                 self.widget,
-                'search',
+                "search",
                 "this search has already been started"
             )
-            return 
+
+            return
 
         worker = self.controller.start(
             searchconfig=self.searchconfig,
@@ -59,7 +61,12 @@ class Search_manager:
         topics = Topic(self.widget).collect()
         cities = City(self.widget,config=config).collect()
 
+        print(topics)
+        print(cities)
+
         for topic,city in zip(topics,cities):
+            self.widget.topics_status.clear()
+            self.widget.cities_status.clear()
 
             self.widget.topics_status.addItem(topic)
             self.widget.cities_status.addItem(city)
@@ -83,9 +90,10 @@ class Search_manager:
             self.status_manager.update_database
         )
 
-        worker.signals.page.connect(
+        worker.signals.total_pages.connect(
             self.status_manager.page_num
         )
+
 
         worker.signals.ad_found.connect(
             self.status_manager.ad_found
@@ -116,4 +124,3 @@ class Search_manager:
         self.widget.cancel.clicked.connect(self.controller.cancel)
 
 
-        self.search = False

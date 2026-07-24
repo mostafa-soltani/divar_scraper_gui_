@@ -12,6 +12,7 @@ class Topic:
 
         topic = self.widget.topic.text().strip().lower()
 
+        
         if not topic:
             QMessageBox.warning(self.widget,'warning','the topic section is empty',QMessageBox.StandardButton.Ok)
             return

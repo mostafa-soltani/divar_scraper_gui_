@@ -26,6 +26,8 @@ class BuildSearchConfig:
         self.city_manager = City(self.widget, self.manager_config)
         self.database_manager = Database(self.widget)
 
+        
+
     def collect_search_data(self):
         database_name = []
 
@@ -37,9 +39,8 @@ class BuildSearchConfig:
             city = self.widget.added_cities.item(i).text()
             cities[city] = self.selected_cities[city]
 
-        for item in range(self.widget.database_lists.count()):
-
-            database_name.append(self.widget.database_lists.item(item).text().strip())
+        database_name = self.database_manager.get()
+        database_type = 3
 
 
         if self.widget.sqlite_radio.isChecked():
@@ -51,8 +52,10 @@ class BuildSearchConfig:
         if self.widget.csv_radio.isChecked() and self.widget.sqlite_radio.isChecked():
             database_type = 3
 
-        else:
+        if not self.widget.csv_radio.isChecked() and not self.widget.sqlite_radio.isChecked():
             database_type = 3
+
+
 
 
         if not database_name:

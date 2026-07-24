@@ -90,29 +90,30 @@ class ApiRequest:
 
             if cancel_token.is_cancelled():
                 signals.cancelled.emit()
+                log_signal.cancelled.emit()
                 return
             for database in database_name:
                 if cancel_token.is_cancelled():
-                    timeout = 0
+                    log_signal.cancelled.emit()
                     signals.cancelled.emit()
                     return
 
                 for city, city_id in cities.items():
                     if cancel_token.is_cancelled():
-                        timeout = 0
+                        log_signal.cancelled.emit()
                         signals.cancelled.emit()
                         return
 
 
                     for topic in topics:
                         if cancel_token.is_cancelled():
-                            timeout = 0
+                            log_signal.cancelled.emit()
                             signals.cancelled.emit()
                             return
 
                         for retry in range(self.max_retry):
                             if cancel_token.is_cancelled():
-                                timeout = 0
+                                log_signal.cancelled.emit()
                                 signals.cancelled.emit()
                                 return
 
@@ -159,7 +160,8 @@ class ApiRequest:
                                     database_name=database,
                                     cancel_token=cancel_token,
                                     database_type=database_type,
-                                    signals=signals
+                                    signals=signals,
+                                    logsignal = log_signal
                                 )
 
                                 self.finals_log(database,topic,city)
@@ -178,6 +180,8 @@ class ApiRequest:
                                     print(f"Skip -> {city} | {topic}")
 
                                 if cancel_token.is_cancelled():
+                                    log_signal.cancelled.emit()
+                                    signals.cancelled.emit()
                                     return
                                 
                                 time.sleep(0.5)
@@ -185,6 +189,7 @@ class ApiRequest:
                     
                     
             signals.finished.emit()
+            log_signal.finished.emit()
 
             return
         
@@ -226,16 +231,17 @@ class ApiRequest:
         )
 
     def _process_pages(
-        self,
-        paginator,
-        url,
-        filters,
-        report_config,
-        database_name,
-        cancel_token,
-        database_type,
-        signals
-    ):
+            self,
+            paginator,
+            url,
+            filters,
+            report_config,
+            database_name,
+            cancel_token,
+            database_type,
+            signals,
+            logsignal
+            ):
 
         database = None
 
@@ -243,6 +249,11 @@ class ApiRequest:
 
             if report_config:
                 self._update_report(report_config)
+
+            if cancel_token.is_cancelled():
+                signals.cancelled.emit()
+                logsignal.cancelled.emit()
+                return
 
             database = processor.process(
                 filters = filters,
@@ -252,7 +263,8 @@ class ApiRequest:
                 state=self.state,
                 cancel_token = cancel_token,
                 url=url,
-                signals=signals
+                signals=signals,
+                logsignal=logsignal
             )
 
         if database:

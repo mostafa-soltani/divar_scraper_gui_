@@ -22,4 +22,4 @@ class Load_Ui:
 
 
         
-        return window
+        return window,logsignal

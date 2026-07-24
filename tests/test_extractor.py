@@ -29,7 +29,7 @@ def test_extractor():
             url=ask_data.url,
             headers=ask_data.headers,
             payloads=payloads,
-            timeout=10
+            timeout=2
         )
 
 
@@ -70,12 +70,7 @@ def test_extractor():
 
 
     ads = extrctor.extract(
-        data_json=data,
-        filter_name=None,
-        min_price=None,
-        max_price=None,
-        name_filter=None,
-        state_filter=None
+        data_json=data
     )
 
 

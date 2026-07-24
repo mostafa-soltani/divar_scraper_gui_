@@ -1,13 +1,12 @@
 {
    "topic": [
-      "pc",
-      "iphone11"
+      "iphone12"
    ],
    "city": [
-      "tehran"
+      "all cities of tehran"
    ],
    "city_ids": [
-      "1"
+      "904"
    ],
    "database_name": [
       "new"
@@ -15,5 +14,5 @@
    "database_path": [
       "databases/new"
    ],
-   "database_type": 2
+   "database_type": 1
 }

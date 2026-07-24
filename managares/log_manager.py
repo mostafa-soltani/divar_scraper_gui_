@@ -9,34 +9,52 @@ class Log_manager:
         self.widget.logs.addItem(item)
 
     def connect_past_search(self):
-        item = 'using last search'
+        item = '🟢 using last search'
         self.widget.logs.addItem(item)
 
     def connect_topics(self,message):
-        message = f'topics {message}'
+        message = f'🟢 topics = {message}'
         self.widget.logs.addItem(message)
     
     def connect_cities(self,message):
-        message = f'cities {message.keys()}'
+        message = f'🟢 cities {message.keys()}'
         self.widget.logs.addItem(message)
 
     def connect_db_name(self,message):
-        message = f'databases {message}'
+        message = f'🟢 databases {message}'
         self.widget.logs.addItem(message)
 
     def connect_db_type(self,message):
-        message = f'databases type {message}'
+        message = f'🟢 databases type {message}'
         self.widget.logs.addItem(message)
 
     def connect_start_search(self):
-        item = 'starting searching'
+        item = '🟢 starting searching'
         self.widget.logs.addItem(item)
 
     def connect_connection(self,message):
-        self.widget.logs.addItem(message)
+
+        if message == 200:
+            text = "🟢 Connected (200)"
+
+        else:
+            text = f"🔴 Error ({message})"
+
+        self.widget.logs.addItem(text)
 
     def connect_time(self,date):
         self.widget.logs.addItem(date)
+
+    def connect_cancel(self):
+        item = "🔴 canceled."
+        self.widget.logs.addItem(item)
+
+    def connect_finished(self):
+        item = '🟢 search compelete'
+        self.widget.logs.addItem(item)
+
+    def connect_page_num(self,message):
+        self.widget.logs.addItem(f'page - {message}')
         
 
 
@@ -59,4 +77,10 @@ class Log_manager:
 
         self.logsignal.connection.connect(self.connect_connection)
 
+        self.logsignal.current_page.connect(self.connect_page_num)
+
         self.logsignal.date_time.connect(self.connect_time)
+
+        self.logsignal.cancelled.connect(self.connect_cancel)
+
+        self.logsignal.finished.connect(self.connect_finished)

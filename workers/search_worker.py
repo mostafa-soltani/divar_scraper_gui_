@@ -14,8 +14,6 @@ class SearchWorker(QRunnable):
             ) -> None:
         super().__init__()
 
-        print('start_search_worker')
-
         self.request = ApiRequest()
         self.signals = WorkerSignals()
         self.search_config = search_config
@@ -46,7 +44,6 @@ class SearchWorker(QRunnable):
                 )
             
             if self.cancel_token.is_cancelled():
-                self.signals.cancelled.emit()
                 return
                     
 

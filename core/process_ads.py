@@ -16,7 +16,7 @@ class process_ads:
 
     def __init__(self):
         self.city = None
-        self.datetime = datetime.datetime.now().strftime('%Y/%M/%D/%H :%m :%S')
+        self.datetime = datetime.datetime.now().strftime('%Y/%M/%D:%H')
         pass
 
     def process(
@@ -28,8 +28,9 @@ class process_ads:
             cancel_token,
             state,
             url,
-            signals
-            ) -> object:
+            signals,
+            logsignal
+            ):
         """
         process ads is a class to process pages of data and ads and save the ads in databases who the user choose.
 
@@ -46,6 +47,7 @@ class process_ads:
         maximum = None
         name = None
         state = None
+        page1 = 0
 
         if 'price' in filters:
             filter_name = 'price_filter'
@@ -65,15 +67,13 @@ class process_ads:
             maximum = None
             
         if cancel_token.is_cancelled():
-            return
+            signals.cancelled.emit()
+            logsignal.cancelled.emit()
+
+            return sql_database.close()
         
-        page = extractor.extract(
-            data_json=page_json,
-            filter_name=filter_name,
-            min_price=minimum,
-            max_price=maximum,
-            name_filter=name,
-            state_filter=state
+        ads_extracted = extractor.extract(
+            data_json=page_json
         )
 
         stats.pagecount()
@@ -84,13 +84,16 @@ class process_ads:
         
 
 
-        if page:
+        if ads_extracted:
             if cancel_token.is_cancelled():
+                signals.cancelled.emit()
+                logsignal.cancelled.emit()
+
                 return
 
             if database_type == 1:
                 data = []
-                for p in page:
+                for p in ads_extracted:
                     row = [
                     p["title"],
                     self.city,
@@ -99,16 +102,20 @@ class process_ads:
                     self.datetime
                     ]
 
+                    page1 = p["current_page"]
+
                     data.append(row)
 
-                signals.ads.emit(data)
 
-                self.__save_sql(page)
+                signals.ads.emit(data)
+                logsignal.current_page.emit(int(page1))
+
+                self.__save_sql(ads_extracted,cancel_token,signals,logsignal)
                     
 
-            elif database_type == 2:
+            if database_type == 2:
                 data = []
-                for p in page:
+                for p in ads_extracted:
                     row = [
                     p["title"],
                     self.city,
@@ -116,16 +123,22 @@ class process_ads:
                     p["state"],
                     self.datetime
                     ]
+                    page1 = p['current_page']
+
 
                     data.append(row)
 
+
+
+
                 signals.ads.emit(data)
+                logsignal.current_page.emit(int(page1))
 
-                self.__save_csv(page)
+                self.__save_csv(ads_extracted)
 
-            else:
+            if database_type == 3:
                 data = []
-                for p in page:
+                for p in ads_extracted:
                     row = [
                     p["title"],
                     self.city,
@@ -133,23 +146,32 @@ class process_ads:
                     p["state"],
                     self.datetime
                     ]
+                    page1 = p['current_page']
+
 
                     data.append(row)
 
+
                 signals.ads.emit(data)
+                logsignal.current_page.emit(int(page1))
 
-                self.__save_sql(page)
-                self.__save_csv(page)
+                self.__save_sql(ads_extracted,cancel_token,signals,logsignal)
+                self.__save_csv(ads_extracted)
 
 
-            stats.adsfound(len(page))
+
+            stats.adsfound(len(ads_extracted))
 
         level = "good" if state == 200 else "bad"
 
         log.readed_page(stats.page_count,stats.ads_found)
-        signals.page.emit(stats.page_count)
+
+        signals.total_pages.emit(stats.page_count)
+
         signals.ad_found.emit(stats.ads_found)
+
         signals.ad_saved.emit(stats.ads_saved)
+
         signals.duplicate.emit(stats.ads_found - stats.ads_saved)
 
         log.connect_log(
@@ -166,7 +188,12 @@ class process_ads:
         self.city = message
 
 
-    def __save_sql(self,page) -> None:
+    def __save_sql(
+            self,
+            ads_extracted,
+            cancel_token,
+            signals,
+            logsignal) -> None:
 
         try:
             
@@ -183,7 +210,12 @@ class process_ads:
             sql_database.create_table()
 
 
-            for item in page:
+            for item in ads_extracted:
+
+                if cancel_token.is_cancelled():
+                    signals.cancelled.emit()
+                    logsignal.cancelled.emit()
+                    return
 
                 ad_config = ad_(
                     title=item['title'],
@@ -207,10 +239,11 @@ class process_ads:
                 state=None
             )
 
-    def __save_csv(self,page) -> None:
+    def __save_csv(self,ads_extracted) -> None:
+
         stats.adssaved(
             save.csv_database(
             self.database_name,
-            page
+            ads_extracted
             )
                 )

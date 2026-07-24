@@ -7,16 +7,15 @@ class Database:
         self.widget = widget
         self.filter = KeyFilter(self.delete)
         self.widget.database_lists.installEventFilter(self.filter)
-        self.database_info = {}
+        self.database_name = []
 
-    def get(self,db_type):
+    def get(self)-> list:
 
 
         for db in range(self.widget.database_lists.count()):
-            db_ = self.widget.database_lists.item(db).text()
-            self.database_info[db_] = db_type
-
-        return self.database_info
+            self.database_name.append(self.widget.database_lists.item(db).text().strip())
+            
+        return self.database_name
 
     def save(self):
         """
@@ -25,7 +24,7 @@ class Database:
 
         database = []
 
-        database = self.widget.dataabse_name.text().strip()
+        database = self.widget.database_name.text().strip()
 
         if not database:
             QMessageBox.critical(
@@ -36,8 +35,10 @@ class Database:
             )
 
             return
-        self.widget.dataabse_lists.addItem(database)
+        self.widget.database_lists.addItem(database)
         self.widget.database_name.clear()
+
+
 
         
 
